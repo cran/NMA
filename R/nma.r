@@ -4,6 +4,9 @@ y <- x$y
 S <- x$S
 dof <- x$df
 
+
+MY <- max(y,na.rm=TRUE) - min(y,na.rm=TRUE)
+
 ###
 
 vmat <- function(q2, p){
@@ -381,7 +384,7 @@ REML <- function(y,S,maxitr=20){
     }
     
     mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = 5)$minimum
+    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
     g2 <- 0.5*g1
     
     V.mu <- ginv2(A2)

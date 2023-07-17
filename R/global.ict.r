@@ -14,6 +14,8 @@ global.ict <- function(x){
 	y <- x$y			# Contrast-based statistics
 	S <- x$S
 
+	MY <- max(y,na.rm=TRUE) - min(y,na.rm=TRUE)
+
 ###
 
 N <- dim(y)[1]
@@ -28,8 +30,12 @@ for(i in 1:N){
 	ti <- sort(treat[wi],decreasing=FALSE)
 	Ti[[i]] <- ti
 
-	di <- NULL
-	for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- NULL
+		for(j in 1:length(wi)){
+			if(is.null(di)==FALSE) di <- paste0(di,"-",ti[j])
+			if(is.null(di)) di <- paste0(di,ti[j])
+		}
+
 	des[i] <- di
 	n.arm[i] <- length(wi)
 	
@@ -454,7 +460,7 @@ REMLIC <- function(y,S,X1,maxitr=200){
     }
     
     mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = 5)$minimum
+    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
     g2 <- 0.5*g1
     
     V.mu <- ginv2(A2)
@@ -530,8 +536,12 @@ for(i in 1:N){
 	ti <- sort(treat[wi],decreasing=FALSE)
 	Ti[[i]] <- ti
 
-	di <- NULL
-	for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- NULL
+		for(j in 1:length(wi)){
+			if(is.null(di)==FALSE) di <- paste0(di,"-",ti[j])
+			if(is.null(di)) di <- paste0(di,ti[j])
+		}
+
 	des[i] <- di
 	n.arm[i] <- length(wi)
 	
@@ -956,7 +966,7 @@ REMLIC <- function(y,S,X1,maxitr=200){
     }
     
     mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = 5)$minimum
+    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
     g2 <- 0.5*g1
     
     V.mu <- ginv2(A2)

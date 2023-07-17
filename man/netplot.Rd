@@ -13,10 +13,10 @@ netplot(x,text=TRUE,col="black",bg="blue",base.lwd=1,base.cex=1)
 \item{base.cex}{A parameter adjusting node sizes (default: 1)}
 }
 \value{
-The networkplot is generated.
+A networkplot is generated.
 }
 \description{
-Generate a networkplot. The sizes of the nodes and edges are proportional to the corresponding sample sizes of direct comparisons. 
+Generating a networkplot. The sizes of the nodes and edges are proportional to the corresponding sample sizes of direct comparisons. 
 }
 \examples{
 data(heartfailure)

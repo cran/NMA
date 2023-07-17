@@ -314,8 +314,60 @@ econtrast5 <- function(X1,X2,X3){		# measure="MD"
 }
 
 
-setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
+setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,z=NULL,measure,ref,data=NULL){
 
+  data <- data.frame(data)
+
+  sz <- substitute(z)
+
+  if(is.null(sz))  covariate <- NULL
+
+  if(is.null(sz)==FALSE){
+
+	z1 <- deparse(substitute(z))
+	
+	z2 <- gsub(" ","",z1)
+	
+	if(substring(z2,1,2)!="c(")  covariate <- z1
+	  
+	if(substring(z2,1,2)=="c("){
+
+		nz <- nchar(z2)
+		z3 <- substring(z2,3,(nz-1))
+		covariate <- strsplit(z3,",")[[1]]
+		
+    }
+	
+  }
+  
+  ###
+
+  if(is.null(covariate)) Z <- NULL
+  
+  if(is.null(covariate)==FALSE){
+  
+  nc <- length(covariate)
+  cn <- colnames(data)
+  
+  ci <- covariate[1]
+  j <- which(cn==ci)
+  dj <- data[,j]
+  Z <- data.frame(dj)
+   
+  if(nc>=2){
+	for(i in 2:nc){
+  
+		ci <- covariate[i]
+		j <- which(cn==ci)
+		dj <- data[,j]
+		Z <- data.frame(Z,dj)
+  	}
+  }
+  
+  colnames(Z) <- covariate
+  
+  }
+  
   if(measure=="OR"){
 
 	study <- data[, deparse(substitute(study))]
@@ -383,7 +435,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
   
 	return(mng2)
   
@@ -396,7 +448,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	trt <- data[, deparse(substitute(trt))]
 	d <- data[, deparse(substitute(d))]
 	n <- data[, deparse(substitute(n))]
-
+	
 	study <- as.numeric(factor(study))
 
     T1 <- ttrt(trt,ref=ref)
@@ -457,7 +509,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
   
 	return(mng2)
   
@@ -541,7 +593,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
   
 	return(mng2)
   
@@ -616,7 +668,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,m=m,s=s,n=n,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
   
 	return(mng2)
   
@@ -691,8 +743,8 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,measure,ref,data=NULL){
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,m=m,s=s,n=n,y=y,S=S)
-  
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
+ 
 	return(mng2)
   
   }
@@ -837,7 +889,7 @@ ginv2 <- function(A){
 		a <- det(A)
 	
 		if(a>0)	return(solve(A))
-		if(a<=0) return(ginv(A))
+		if(a<=0) message("Error: The matrix is singular (The inverse matrix does not exist).")
 
 	}
 

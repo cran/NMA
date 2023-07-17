@@ -9,6 +9,7 @@
 data(diabetes)
 }
 \description{
+A network meta-analysis data from Elliott and Mayer (2007) that compared 5 antihypertensive drug classes and placebo for occurrence of diabetes.
 \itemize{
   \item \code{study}: Study ID
   \item \code{trt}: Treatment (Diuretic, ACEI (ACE inhibitor), ARB, Beta blocker, CCB (Calcium-channel blocker), Placebo)

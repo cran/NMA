@@ -4,11 +4,12 @@
 \name{smoking}
 \alias{smoking}
 \title{Smoking cessation data}
-\format{An arm-based dataset with 24 trials.}
+\format{An arm-based dataset with 24 studies.}
 \usage{
 data(smoking)
 }
 \description{
+A network meta-analysis data for smoking cessation from Lu and Ades (2006) and Higgins et al. (2012).
 \itemize{
   \item \code{study}: Study ID.
   \item \code{trt}: A character variable that indicates the type of intervention, \code{A}: No contact, \code{B}: Self help, \code{C}: Individual counselling, \code{D}: Group counselling.

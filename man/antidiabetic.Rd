@@ -3,12 +3,13 @@
 \docType{data}
 \name{antidiabetic}
 \alias{antidiabetic}
-\title{A network meta-analysis dataset for treatment of type-2 diabetes from Chaimani and Salanti (2015)}
+\title{Phung et al. (2010)'s network meta-analysis data}
 \format{An arm-based dataset with 20 studies}
 \usage{
 data(antidiabetic)
 }
 \description{
+A network meta-analysis dataset for treatments of type-2 diabetes from Chaimani and Salanti (2015).
 \itemize{
   \item \code{id}: Study ID
   \item \code{t}: Treatment (Placebo, AGI, DPP-4 inhibitor, Glinine, GLP-1 analog, Sulfonylurea, Thiazolidinedione)

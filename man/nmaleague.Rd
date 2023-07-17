@@ -10,16 +10,16 @@ nmaleague(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=NULL)
 \item{eform}{A logical value that specify whether the outcome should be transformed by exponential function (default: FALSE)}
 \item{digits}{Number of decimal places}
 \item{PI}{A logical value that specify whether the inference or prediction results are provided}
-\item{out.csv}{A character object that specify a filename if the league table is outputted as a CSV file (e.g., \code{out.csv="out_league.csv"}).}
+\item{out.csv}{A character object that specify a filename if the user wants to output the league table as a CSV file (e.g., \code{out.csv="out_league.csv"}).}
 }
 \value{
-The league table is generated.
+A league table is generated.
 }
 \description{
 A league table is generated for all possible pairs of the treatments. The league table can be outputted as a CSV file through setting \code{out.csv="filename"}.
 }
 \references{
-Nikolakopoulou, A., White, I. R., Salanti, G. (2021). Network meta-analysis. In: Schmid, C. H., Stijnen, T., White, I. R., eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
+Nikolakopoulou, A., White, I. R., and Salanti, G. (2021). Network meta-analysis. In: Schmid, C. H., Stijnen, T., White, I. R., eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
 
 Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1652}.
 

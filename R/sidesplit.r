@@ -2,6 +2,9 @@ sidesplit <- function(x){
 
 	xms <- x$measure
 
+	MY <- max(x$y,na.rm=TRUE) - min(x$y,na.rm=TRUE)
+
+
 	if(xms=="OR"||xms=="RR"||xms=="RD"){
 
 	study <- x$study
@@ -391,7 +394,7 @@ REMLSS <- function(y,S,X1,maxitr=50){
     }
     
     mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = 5)$minimum
+    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
     g2 <- 0.5*g1
     
     V.mu <- ginv2(A2)
@@ -961,7 +964,7 @@ REMLSS <- function(y,S,X1,maxitr=50){
     }
     
     mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = 5)$minimum
+    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
     g2 <- 0.5*g1
     
     V.mu <- ginv2(A2)

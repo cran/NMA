@@ -3,14 +3,12 @@
 \alias{NMA-package}
 \title{The 'NMA' package.}
 \description{
-Network meta-analysis tools based on the contrast-based approach using the multivariate meta-analysis and meta-regression models (Noma et al., 2023c). Standard REML-based frequentist inference methods and the improved Noma-Hamura's inference and prediction methods (Noma et al., 2023ab) are available. Also, the local and global inconsistency tests based on the Higgins' design-by-treatment interaction model (Higgins et al., 2012) and the side-splitting method (Dias et al., 2010; Noma et al., 2017; Noma, 2023a) can be used. Standard graphical tools for network meta-analysis (e.g., network plot, ranked forest plot) are also available.
+Network meta-analysis tools based on contrast-based approach using the multivariate meta-analysis and meta-regression models (Noma et al., 2023c). Standard analysis tools for network meta-analysis and meta-regression (e.g., synthesis analysis, ranking analysis, and creating league table) are available by simple commands. For inconsistency analyses, the local and global inconsistency tests based on the Higgins' design-by-treatment interaction model (Higgins et al., 2012) and the side-splitting (Noma et al., 2017; Noma, 2023a) can be used. Also, standard graphical tools for network meta-analysis (e.g., network plot, ranked forest plot, and transitivity analysis) are available. For the synthesis analyses, the Noma-Hamura's improved REML (restricted maximum likelihood)-based methods (Noma et al., 2023ab) are adopted as the default methods.
 }
 \references{
-Dias, S., Welton, N. J., Caldwell, D. M., and Ades, A. E. (2010). Checking consistency in mixed treatment comparison meta-analysis. \emph{Statistics in Medicine} \strong{29}, 932-944.
-
 Higgins, J. P., Jackson, D., Barrett, J. K., Lu, G., Ades, A. E., and White, I. R. (2012). Consistency and inconsistency in network meta-analysis: concepts and models for multi-arm studies. \emph{Research Synthesis Methods} \strong{3}, 98-110.
 
-Nikolakopoulou, A., White, I. R., Salanti, G. (2021). Network meta-analysis. In: Schmid CH, Stijnen T, White IR, eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
+Nikolakopoulou, A., White, I. R., and Salanti, G. (2021). Network meta-analysis. In: Schmid CH, Stijnen T, White IR, eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
 
 Noma, H. (2023a). Sidesplitting using network meta-regression. Forthcoming.
 
@@ -23,6 +21,8 @@ Noma, H., Hamura, Y., Sugasawa, S., and Furukawa, T. A. (2023b). Improved method
 Noma, H., Maruo, K., Tanaka, S. and Furukawa, T. A. (2023c). NMA: R package for network meta-analysis based on the multivariate meta-analysis and meta-regression models. Forthcoming.
 
 Noma, H., Tanaka, S., Matsui, S., Cipriani, A., and Furukawa, T. A. (2017). Quantifying indirect evidence in network meta-analysis. \emph{Statistics in Medicine} \strong{36}, 917-927.
+
+Salanti, G. (2012). Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis: many names, many benefits, many concerns for the next generation evidence synthesis tool. \emph{Research Synthesis Methods} \strong{3}, 80-97. 
 
 White, I. R., Barrett, J. K., Jackson, D., and Higgins, J. P. (2012). Consistency and inconsistency in network meta-analysis: model estimation using multivariate meta-regression. \emph{Research Synthesis Methods} \strong{3}, 111-125.
 }

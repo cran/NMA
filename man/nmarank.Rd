@@ -1,6 +1,6 @@
 \name{nmarank}
 \alias{nmarank}
-\title{Calculating the ranking statistics of network meta-analysis}
+\title{Calculating ranking statistics of network meta-analysis}
 \usage{
 nmarank(x, B=20000, method="NH", ascending=TRUE)
 }
@@ -11,7 +11,7 @@ nmarank(x, B=20000, method="NH", ascending=TRUE)
 
 \item{method}{Estimation and prediction method. \code{NH}: Noma-Hamura's improved REML-based methods (default). \code{REML}: The ordinary REML method. \code{fixed}: Fixed-effect model.}
 
-\item{ascending}{A logical value that specify whether the ranking is defined by ascending or descending order}
+\item{ascending}{A logical value that specify whether the ranking is defined by ascending or descending order.}
 }
 \value{
 Results of the ranking statistics of network meta-analysis are provided. Also, ranking probability plots are generated.
