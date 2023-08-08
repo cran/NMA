@@ -31,7 +31,7 @@ Results of the network meta-analysis using the multivariate meta-analysis model.
 Network meta-analysis based on contrast-based approach using the multivariate random-effects meta-analysis model. The synthesis results and prediction intervals based on the consistency assumption are provided. The ordinary REML method and its improved higher order asymptotic methods (Noma-Hamura methods) are available.
 }
 \references{
-Jackson, D., White, I. R., Riley, R. D. (2012). Quantifying the impact of between-study heterogeneity in multivariate meta-analyses. \emph{Statistics in Medicine} \emph{31}: 3805-3820. 
+Jackson, D., White, I. R., Riley, R. D. (2012). Quantifying the impact of between-study heterogeneity in multivariate meta-analyses. \emph{Statistics in Medicine} \strong{31}: 3805-3820. 
 
 Nikolakopoulou, A., White, I. R., and Salanti, G. (2021). Network meta-analysis. In: Schmid, C. H., Stijnen, T., White, I. R., eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
 

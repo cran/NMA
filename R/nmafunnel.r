@@ -42,8 +42,8 @@ nmafunnel <- function(x, method="NH", legends="topright"){
 	
 	des0 <- sort(unique(des))
 	
-	w1 <- which(str_detect(des, pattern="1"))
-	w0 <- which(str_detect(des0, pattern="1"))
+	w1 <- which(substr(des,1,2)=="1-")
+	w0 <- which(substr(des0,1,2)=="1-")
 
 	###
 

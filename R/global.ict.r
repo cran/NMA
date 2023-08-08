@@ -522,6 +522,8 @@ if(dof==0)	return("The degree-of-freedom of this network is 0.")
 	y <- x$y			# Contrast-based statistics
 	S <- x$S
 
+	MY <- max(y,na.rm=TRUE) - min(y,na.rm=TRUE)
+
 ###
 
 N <- dim(y)[1]

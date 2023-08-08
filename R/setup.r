@@ -257,7 +257,7 @@ econtrast4 <- function(X1,X2,X3){		# measure="MD"
 }
 
 
-econtrast5 <- function(X1,X2,X3){		# measure="MD"
+econtrast5 <- function(X1,X2,X3){		# measure="SMD"
   
   N <- dim(X1)[1]
   p <- dim(X1)[2]
@@ -268,13 +268,16 @@ econtrast5 <- function(X1,X2,X3){		# measure="MD"
     
     z1 <- X1[,1]
 	z2 <- X2[,1]
+	z3 <- X3[,1]
 	
     x1 <- X1[,i]
 	x2 <- X2[,i]
+	x3 <- X3[,i]
 	
-	s2 <- (z2 + x2)/2
+	#s2 <- (z2 + x2)/2
+	s2 <- ((z3-1)*z2*z2 + (x3-1)*x2*x2)/(z3+x3-2)
     
-    y[,(i-1)] <- (x1 - z1)/s2
+    y[,(i-1)] <- (x1 - z1)/sqrt(s2)
     
   }
   
@@ -668,7 +671,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,z=NULL,measure,ref,data=
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,m=m,s=s,n=n,Z=Z,y=y,S=S)
   
 	return(mng2)
   
@@ -743,7 +746,7 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,z=NULL,measure,ref,data=
 	
 	###
 
-	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,m=m,s=s,n=n,Z=Z,y=y,S=S)
  
 	return(mng2)
   
@@ -889,7 +892,10 @@ ginv2 <- function(A){
 		a <- det(A)
 	
 		if(a>0)	return(solve(A))
-		if(a<=0) message("Error: The matrix is singular (The inverse matrix does not exist).")
+		if(a<=0){
+			message("Error: The matrix is singular (The inverse matrix does not exist).")
+			return(NaN)
+		}
 
 	}
 

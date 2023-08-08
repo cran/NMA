@@ -30,8 +30,8 @@ pairwise <- function(x,method="REML"){
 		ti <- sort(treat[wi],decreasing=FALSE)
 		Ti[[i]] <- ti
 
-		di <- NULL
-		for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- ti[1]
+		for(j in 2:length(wi)) di <- paste0(di,"-",ti[j])
 		des[i] <- di
 		n.arm[i] <- length(wi)
 	
@@ -45,8 +45,8 @@ pairwise <- function(x,method="REML"){
 		
 		for(h in (k+1):p){
 
-			pair <- paste0(k,h)
-			i.pair <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
+			pair <- paste0(k,"-",h)
+			i.pair <- str_detect(des, pattern=pair)
 			w.pair <- which(i.pair)
 
 			n.i <- sum(i.pair)
@@ -152,8 +152,8 @@ pairwise <- function(x,method="REML"){
 		ti <- sort(treat[wi],decreasing=FALSE)
 		Ti[[i]] <- ti
 
-		di <- NULL
-		for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- ti[1]
+		for(j in 2:length(wi)) di <- paste0(di,"-",ti[j])
 		des[i] <- di
 		n.arm[i] <- length(wi)
 	
@@ -167,8 +167,8 @@ pairwise <- function(x,method="REML"){
 		
 		for(h in (k+1):p){
 
-			pair <- paste0(k,h)
-			i.pair <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
+			pair <- paste0(k,"-",h)
+			i.pair <- str_detect(des, pattern=pair)
 			w.pair <- which(i.pair)
 
 			n.i <- sum(i.pair)

@@ -393,52 +393,74 @@ REMLSS <- function(y,S,X1,maxitr=50){
 
     }
     
-    mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
-    g2 <- 0.5*g1
+	if(det(A2)>0){
+	
+		mu <- A1 %*% ginv2(A2)
+		g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
+		g2 <- 0.5*g1
     
-    V.mu <- ginv2(A2)
+		V.mu <- ginv2(A2)
     
-    Qc <- c(mu,g1,g2)
+		Qc <- c(mu,g1,g2)
     
-    rb <- abs(Qc - Qc0)/abs(Qc0); rb[is.nan(rb)] <- 0
-    if(max(rb) < 10^-4) break
+		rb <- abs(Qc - Qc0)/abs(Qc0); rb[is.nan(rb)] <- 0
+		if(max(rb) < 10^-4) break
         
-    Qc0 <- Qc
+		Qc0 <- Qc
+	
+	}
+	
+	if(det(A2)<=0)	break
     
   }
   
-  SE <- sqrt(diag(V.mu))
-  
-  R1 <- as.vector(mu)
-  R2 <- as.vector(SE)
-  R3 <- as.vector(mu - qnorm(.975)*SE)
-  R4 <- as.vector(mu + qnorm(.975)*SE)
-  P4 <- 2*(1-pnorm(abs(R1)/R2))
+  if(det(A2)>0){
 
-  R5 <- cbind(R1,R2,R3,R4,P4); colnames(R5) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	SE <- sqrt(diag(V.mu))
   
-  rname <- NULL
-  for(i in 1:p) rname <- c(rname,rownames(X1[[i]]))
+	R1 <- as.vector(mu)
+	R2 <- as.vector(SE)
+	R3 <- as.vector(mu - qnorm(.975)*SE)
+	R4 <- as.vector(mu + qnorm(.975)*SE)
+	P4 <- 2*(1-pnorm(abs(R1)/R2))
 
-  kp <- which(rname=="i.direct")
-  kq <- which(rname=="i.indirect")
+	R5 <- cbind(R1,R2,R3,R4,P4); colnames(R5) <- c("Coef.","SE","95%CL","95%CU","P-value")
   
-  R6 <- R5[kp,]
-  R7 <- R5[kq,]
+	rname <- NULL
+	for(i in 1:p) rname <- c(rname,rownames(X1[[i]]))
+
+	kp <- which(rname=="i.direct")
+	kq <- which(rname=="i.indirect")
   
-  r1 <- R6[1] - R7[1]  
-  r2 <- sqrt(R6[2]^2 + R7[2]^2)
-  r3 <- r1 - qnorm(.975)*r2
-  r4 <- r1 + qnorm(.975)*r2
-  r5 <- 2*(1-pnorm(abs(r1)/r2))
+	R6 <- R5[kp,]
+	R7 <- R5[kq,]
+  
+	r1 <- R6[1] - R7[1]  
+	r2 <- sqrt(R6[2]^2 + R7[2]^2)
+	r3 <- r1 - qnorm(.975)*r2
+	r4 <- r1 + qnorm(.975)*r2
+	r5 <- 2*(1-pnorm(abs(r1)/r2))
 
-  R8 <- data.frame(r1,r2,r3,r4,r5)
-  colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	R8 <- data.frame(r1,r2,r3,r4,r5)
+	colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
 
-  R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
+	R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
     
-  return(R9)
+	return(R9)
+	
+  }
+  
+  if(det(A2)<=0){
+
+	R6 <- R7 <- R8 <- t(data.frame(c(NA,NA,NA,NA,NA)))
+	colnames(R6) <- colnames(R7) <- colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	rownames(R6) <- rownames(R7) <- rownames(R8) <- NULL
+
+  	R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
+    
+	return(R9)
+
+  }
   
 }
 
@@ -459,8 +481,8 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		ti <- sort(treat[wi],decreasing=FALSE)
 		Ti[[i]] <- ti
 
-		di <- NULL
-		for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- ti[1]
+		for(j in 2:length(wi)) di <- paste0(di,"-",ti[j])
 		des[i] <- di
 		n.arm[i] <- length(wi)
 	
@@ -485,9 +507,18 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		
 		for(h in (k+1):p){
 
-			pair <- paste0(k,h)
-			i.pair <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
-			w.pair <- which(i.pair)
+			w.pair <- NULL
+				
+			for(i in 1:N){
+				
+				tri <- Ti[[i]]
+				if( (sum(tri==k) + sum(tri==h))==2 ) w.pair <- c(w.pair,i)
+				
+			}
+			
+			i.pair <- rep(FALSE,times=N)
+			i.pair[w.pair] <- TRUE
+	
 			i.direct <- numeric(N); i.direct[w.pair] <- 1
 			i.indirect <- numeric(N) + 1; i.indirect[w.pair] <- 0
 			
@@ -512,8 +543,7 @@ REMLSS <- function(y,S,X1,maxitr=50){
 					
 						des.l <- uwd[l]
 
-						i.arm <- numeric(nchar(des.l))
-						for(a in 1:nchar(des.l))  i.arm[a] <- as.numeric(substr(des.l,a,a))
+						i.arm <- as.numeric(strsplit(des.l,"-")[[1]])
 
 						wl <- setdiff(i.arm,c(k,h))
 					
@@ -558,10 +588,16 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		rownames(R2) <- rname
 		rownames(R3) <- rname
 
-		R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
-	
+		if(sum(is.na(R3[,1]))>=1){
+			R5 <- "For the NA components, the corresponding estimates were not calculable because of singularity issues (possibly, all the evidence about these contrasts comes from the studies which directly compare them)."
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5)
+		}
+		if(sum(is.na(R3[,1]))==0){
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
+		}
+
 		return(R4)
-	
+
 	}
 	
 	if(is.null(rname)){
@@ -963,52 +999,75 @@ REMLSS <- function(y,S,X1,maxitr=50){
 
     }
     
-    mu <- A1 %*% ginv2(A2)
-    g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
-    g2 <- 0.5*g1
     
-    V.mu <- ginv2(A2)
+	if(det(A2)>0){
+	
+		mu <- A1 %*% ginv2(A2)
+		g1 <- optimize(LL1, lower = 0, upper = MY)$minimum
+		g2 <- 0.5*g1
     
-    Qc <- c(mu,g1,g2)
+		V.mu <- ginv2(A2)
     
-    rb <- abs(Qc - Qc0)/abs(Qc0); rb[is.nan(rb)] <- 0
-    if(max(rb) < 10^-4) break
+		Qc <- c(mu,g1,g2)
+    
+		rb <- abs(Qc - Qc0)/abs(Qc0); rb[is.nan(rb)] <- 0
+		if(max(rb) < 10^-4) break
         
-    Qc0 <- Qc
+		Qc0 <- Qc
+	
+	}
+	
+	if(det(A2)<=0)	break
     
   }
   
-  SE <- sqrt(diag(V.mu))
-  
-  R1 <- as.vector(mu)
-  R2 <- as.vector(SE)
-  R3 <- as.vector(mu - qnorm(.975)*SE)
-  R4 <- as.vector(mu + qnorm(.975)*SE)
-  P4 <- 2*(1-pnorm(abs(R1)/R2))
+  if(det(A2)>0){
 
-  R5 <- cbind(R1,R2,R3,R4,P4); colnames(R5) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	SE <- sqrt(diag(V.mu))
   
-  rname <- NULL
-  for(i in 1:p) rname <- c(rname,rownames(X1[[i]]))
+	R1 <- as.vector(mu)
+	R2 <- as.vector(SE)
+	R3 <- as.vector(mu - qnorm(.975)*SE)
+	R4 <- as.vector(mu + qnorm(.975)*SE)
+	P4 <- 2*(1-pnorm(abs(R1)/R2))
 
-  kp <- which(rname=="i.direct")
-  kq <- which(rname=="i.indirect")
+	R5 <- cbind(R1,R2,R3,R4,P4); colnames(R5) <- c("Coef.","SE","95%CL","95%CU","P-value")
   
-  R6 <- R5[kp,]
-  R7 <- R5[kq,]
+	rname <- NULL
+	for(i in 1:p) rname <- c(rname,rownames(X1[[i]]))
+
+	kp <- which(rname=="i.direct")
+	kq <- which(rname=="i.indirect")
   
-  r1 <- R6[1] - R7[1]  
-  r2 <- sqrt(R6[2]^2 + R7[2]^2)
-  r3 <- r1 - qnorm(.975)*r2
-  r4 <- r1 + qnorm(.975)*r2
-  r5 <- 2*(1-pnorm(abs(r1)/r2))
+	R6 <- R5[kp,]
+	R7 <- R5[kq,]
+  
+	r1 <- R6[1] - R7[1]  
+	r2 <- sqrt(R6[2]^2 + R7[2]^2)
+	r3 <- r1 - qnorm(.975)*r2
+	r4 <- r1 + qnorm(.975)*r2
+	r5 <- 2*(1-pnorm(abs(r1)/r2))
 
-  R8 <- data.frame(r1,r2,r3,r4,r5)
-  colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	R8 <- data.frame(r1,r2,r3,r4,r5)
+	colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
 
-  R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
+	R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
     
-  return(R9)
+	return(R9)
+	
+  }
+  
+  if(det(A2)<=0){
+
+	R6 <- R7 <- R8 <- t(data.frame(c(NA,NA,NA,NA,NA)))
+	colnames(R6) <- colnames(R7) <- colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
+	rownames(R6) <- rownames(R7) <- rownames(R8) <- NULL
+
+  	R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
+    
+	return(R9)
+
+  }
   
 }
 
@@ -1029,8 +1088,8 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		ti <- sort(treat[wi],decreasing=FALSE)
 		Ti[[i]] <- ti
 
-		di <- NULL
-		for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- ti[1]
+		for(j in 2:length(wi)) di <- paste0(di,"-",ti[j])
 		des[i] <- di
 		n.arm[i] <- length(wi)
 	
@@ -1055,12 +1114,21 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		
 		for(h in (k+1):p){
 
-			pair <- paste0(k,h)
-			i.pair <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
-			w.pair <- which(i.pair)
+			w.pair <- NULL
+				
+			for(i in 1:N){
+				
+				tri <- Ti[[i]]
+				if( (sum(tri==k) + sum(tri==h))==2 ) w.pair <- c(w.pair,i)
+				
+			}
+			
+			i.pair <- rep(FALSE,times=N)
+			i.pair[w.pair] <- TRUE
+	
 			i.direct <- numeric(N); i.direct[w.pair] <- 1
 			i.indirect <- numeric(N) + 1; i.indirect[w.pair] <- 0
-			
+					
 			if(sum(i.pair)>=1){
 			
 				X1 <- NULL
@@ -1082,8 +1150,7 @@ REMLSS <- function(y,S,X1,maxitr=50){
 					
 						des.l <- uwd[l]
 
-						i.arm <- numeric(nchar(des.l))
-						for(a in 1:nchar(des.l))  i.arm[a] <- as.numeric(substr(des.l,a,a))
+						i.arm <- as.numeric(strsplit(des.l,"-")[[1]])
 
 						wl <- setdiff(i.arm,c(k,h))
 					
@@ -1128,12 +1195,18 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		rownames(R2) <- rname
 		rownames(R3) <- rname
 
-		R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
-	
+		if(sum(is.na(R3[,1]))>=1){
+			R5 <- "For the NA components, the corresponding estimates were not calculable because of singularity issues (possibly, all the evidence about these contrasts comes from the studies which directly compare them)."
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5)
+		}
+		if(sum(is.na(R3[,1]))==0){
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
+		}
+
 		return(R4)
-	
+
 	}
-	
+		
 	if(is.null(rname)){
 	
 		R9 <- "There are no corresponding pairs that can be analyzed on the network."

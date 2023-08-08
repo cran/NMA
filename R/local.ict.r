@@ -28,8 +28,8 @@ local.ict <- function(x){
 		ti <- sort(treat[wi],decreasing=FALSE)
 		Ti[[i]] <- ti
 
-		di <- NULL
-		for(j in 1:length(wi)) di <- paste0(di,ti[j])
+		di <- ti[1]
+		for(j in 2:length(wi)) di <- paste0(di,"-",ti[j])
 		des[i] <- di
 		n.arm[i] <- length(wi)
 		study.i[wi] <- i
@@ -44,15 +44,23 @@ local.ict <- function(x){
 		for(h in (k+1):(p-1)){
 			for(l in (h+1):p){
 			
-				i.pair1 <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
-				i.pair2 <- str_detect(des, pattern=paste(h))&str_detect(des, pattern=paste(l))
-				i.pair3 <- str_detect(des, pattern=paste(l))&str_detect(des, pattern=paste(k))
-				i.tri <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))&str_detect(des, pattern=paste(l))
+				i.pair1 <- i.pair2 <- i.pair3 <- i.tri <- NULL
 				
-				w.pair1 <- setdiff(which(i.pair1),which(i.tri))
-				w.pair2 <- setdiff(which(i.pair2),which(i.tri))
-				w.pair3 <- setdiff(which(i.pair3),which(i.tri))
-				w.tri <- which(i.tri)
+				for(i in 1:N){
+				
+					tri <- Ti[[i]]
+					if( (sum(tri==k) + sum(tri==h))==2 ) i.pair1 <- c(i.pair1,i)
+					if( (sum(tri==h) + sum(tri==l))==2 ) i.pair2 <- c(i.pair2,i)
+					if( (sum(tri==l) + sum(tri==k))==2 ) i.pair3 <- c(i.pair3,i)
+					if( (sum(tri==k) + sum(tri==h) + sum(tri==l))==3 ) i.tri <- c(i.tri,i)
+				
+				
+				}
+			
+				w.pair1 <- setdiff(i.pair1,i.tri)
+				w.pair2 <- setdiff(i.pair2,i.tri)
+				w.pair3 <- setdiff(i.pair3,i.tri)
+				w.tri <- i.tri
 				
 				cond1 <- (length(w.pair1)>=1)&&(length(w.pair2)>=1)&&(length(w.pair3)>=1)
 				cond2 <- (length(w.pair1)>=1)&&(length(w.tri)>=1)
@@ -154,15 +162,23 @@ local.ict <- function(x){
 		for(h in (k+1):(p-1)){
 			for(l in (h+1):p){
 			
-				i.pair1 <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))
-				i.pair2 <- str_detect(des, pattern=paste(h))&str_detect(des, pattern=paste(l))
-				i.pair3 <- str_detect(des, pattern=paste(l))&str_detect(des, pattern=paste(k))
-				i.tri <- str_detect(des, pattern=paste(k))&str_detect(des, pattern=paste(h))&str_detect(des, pattern=paste(l))
+				i.pair1 <- i.pair2 <- i.pair3 <- i.tri <- NULL
 				
-				w.pair1 <- setdiff(which(i.pair1),which(i.tri))
-				w.pair2 <- setdiff(which(i.pair2),which(i.tri))
-				w.pair3 <- setdiff(which(i.pair3),which(i.tri))
-				w.tri <- which(i.tri)
+				for(i in 1:N){
+				
+					tri <- Ti[[i]]
+					if( (sum(tri==k) + sum(tri==h))==2 ) i.pair1 <- c(i.pair1,i)
+					if( (sum(tri==h) + sum(tri==l))==2 ) i.pair2 <- c(i.pair2,i)
+					if( (sum(tri==l) + sum(tri==k))==2 ) i.pair3 <- c(i.pair3,i)
+					if( (sum(tri==k) + sum(tri==h) + sum(tri==l))==3 ) i.tri <- c(i.tri,i)
+				
+				
+				}
+			
+				w.pair1 <- setdiff(i.pair1,i.tri)
+				w.pair2 <- setdiff(i.pair2,i.tri)
+				w.pair3 <- setdiff(i.pair3,i.tri)
+				w.tri <- i.tri
 				
 				cond1 <- (length(w.pair1)>=1)&&(length(w.pair2)>=1)&&(length(w.pair3)>=1)
 				cond2 <- (length(w.pair1)>=1)&&(length(w.tri)>=1)
