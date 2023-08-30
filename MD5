@@ -1,6 +1,6 @@
-d277f95f2e4cb154998845b39cf7e9b0 *DESCRIPTION
+ab27c169fd2e6d946938b68b0b0dd88d *DESCRIPTION
 b90f2f2098b26361b160b4abb79c8881 *NAMESPACE
-038282af39c261a038dedb7e752d84c9 *NEWS.md
+ae75efce0ab9d2f91b81a9fb21b655f1 *NEWS.md
 84b781bfbbfc08d76917816c1880d612 *R/global.ict.r
 de4a4078fb3976ecd41810411f038e3f *R/local.ict.r
 5f2f7efd1b304b34fab4b7d17ab432a2 *R/netplot.r
@@ -24,7 +24,7 @@ b5699fcbc5f4c54b73a9cd0e4c95c1a9 *data/antidiabetic.RData
 100ec25adc62b1154df998ee932da906 *data/diabetes.RData
 69dde3908be992ff16ed000e9b89a648 *data/heartfailure.RData
 9fdffa0527fb9c245c11ba6ffa988656 *data/smoking.RData
-c0813ec52c6ab54d12e5db1cbbef84b1 *man/NMA-package.Rd
+11e955e1b93a1cc5a54ffc85ff8b8c80 *man/NMA-package.Rd
 ca72145da82bede5beceb579e8113fce *man/antidiabetic.Rd
 ab76ad7a69962c6c4b224b3f7c38ad9c *man/diabetes.Rd
 817cf47b1744e6c99e82864f5143934d *man/global.ict.Rd
@@ -43,7 +43,7 @@ c0f9172fbe759d640cf42cfe2ae8254f *man/nmaweight.Rd
 6bca9e7819bf318c24caf8f978af5e8a *man/pairwise.Rd
 ff4d66afa5ea2b9441c0f905a79b31e2 *man/random.icm.Rd
 00d6bd9e7666305ecbfd2c527a5d5c9e *man/rdc.Rd
-f490aef48cff1b23f05e4e9450ec027e *man/setup.Rd
-f30a4ccb0c82d00d7e38bb4fe9e08806 *man/sidesplit.Rd
+29ddeb6d28aa31b8cbf5c1c8e76825d9 *man/setup.Rd
+a1e859aeef6255e27bda1bcb6b084557 *man/sidesplit.Rd
 650dd5df6535534481ffbcbeeead8436 *man/smoking.Rd
 4a360ac070de2563edf8bfee0c38d574 *man/transitivity.Rd

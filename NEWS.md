@@ -1,3 +1,7 @@
+# MVNMA 1.3-2 (2023-08-30)
+
+- Reference information is added.
+
 # MVNMA 1.3-1 (2023-08-08)
 
 - New functions are added: nmaQ, random.icm

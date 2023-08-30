@@ -10,9 +10,9 @@ Higgins, J. P., Jackson, D., Barrett, J. K., Lu, G., Ades, A. E., and White, I. 
 
 Nikolakopoulou, A., White, I. R., and Salanti, G. (2021). Network meta-analysis. In: Schmid CH, Stijnen T, White IR, eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
 
-Noma, H. (2023a). Sidesplitting using network meta-regression. Forthcoming.
+Noma, H. (2023a). Sidesplitting using network meta-regression. Jxiv, 493. \doi{10.51094/jxiv.493}.
 
-Noma, H. (2023b). Within-study covariance estimators for network meta-analysis with contrast-based approach. Forthcoming.
+Noma, H. (2023b). Within-study covariance estimators for network meta-analysis with contrast-based approach. Jxiv, 490. \doi{10.51094/jxiv.490}.
 
 Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023a). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1652}.
 

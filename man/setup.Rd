@@ -46,7 +46,7 @@ Besides, if the \code{measure} is specified as \code{MD} or \code{SMD}, the outc
 Several covariates can be involved as \code{z} for network meta-regression analysis (\code{nmareg}) and transitivity analysis (\code{transitivity}). 
 }
 \references{
-Noma, H. (2023). Within-study covariance estimators for network meta-analysis with contrast-based approach. Forthcoming.
+Noma, H. (2023). Within-study covariance estimators for network meta-analysis with contrast-based approach. Jxiv, 490. \doi{10.51094/jxiv.490}.
 }
 \examples{
 data(heartfailure)
