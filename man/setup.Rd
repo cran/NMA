@@ -7,12 +7,12 @@ setup(study,trt,d,n,m,s,z,measure,ref,data)
 \arguments{
 \item{study}{Study ID}
 \item{trt}{Treatment variable. It can be formed as both of numbered treatment (=1,2,...) and characters (e.g., "Placebo", "ARB", "Beta blocker").}
-\item{d}{Number of events (for dichotomous outcome).}
-\item{n}{Sample size (for dichotomous and continuous outcome).}
+\item{d}{Number of events (for dichotomous outcome and survival outcome).}
+\item{n}{Sample size (for dichotomous and continuous outcome) or total person-time at risk (for survival outcome).}
 \item{m}{Mean of the outcome variable (for continuous outcome).}
 \item{s}{Standard deviation of the outcome variable (for continuous outcome).}
 \item{z}{Covariate name vector to be used for network meta-regression analysis or transitivity analysis (optional).}
-\item{measure}{Outcome measure (can be \code{OR} (odds ratio), \code{RR} (risk ratio), and \code{RD} (risk difference) for dichotomous outcome, and \code{MD} (mean difference) and \code{SMD} (standardized mean difference) for continuous outcome.}
+\item{measure}{Outcome measure (can be \code{OR} (odds ratio), \code{RR} (risk ratio), and \code{RD} (risk difference) for dichotomous outcome, \code{MD} (mean difference) and \code{SMD} (standardized mean difference) for continuous outcome, and \code{HR} (hazard ratio) for survival outcome.}
 \item{ref}{Reference treatment category that should be involved in \code{trt}.}
 \item{data}{A data frame that involves the arm-based data.}
 }
@@ -43,6 +43,7 @@ A setup function to generate R objects that can be used for network meta-analysi
 Users should prepare arm-level datasets, and the \code{setup} function transforms the arm-level data to the contrast-based summary statistics. 
 Both of dichotomous and continuous outcomes can be treated. The type of outcome variable can be specified by the \code{measure}. If the \code{measure} is specified as \code{OR}, \code{RR} or \code{RD}, the outcome should be dichotomous, and \code{d} and \code{n} are needed to compute the summary statistics.
 Besides, if the \code{measure} is specified as \code{MD} or \code{SMD}, the outcome should be continuous, and \code{m}, \code{s} and \code{n} are needed to compute the summary statistics. 
+Also, if the \code{measure} is specified as \code{HR}, the outcome should be survival (time-to-event), and \code{d} and \code{n} are needed to compute the summary statistics. Note \code{HR} corresponds to rate-ratio in ordinary sense and this option corresponds to the person-time analysis; hazard ratio accords to rate-ratio if the survival time distribution is exponential distribution.
 Several covariates can be involved as \code{z} for network meta-regression analysis (\code{nmareg}) and transitivity analysis (\code{transitivity}). 
 }
 \references{

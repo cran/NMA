@@ -5,7 +5,7 @@ sidesplit <- function(x){
 	MY <- max(x$y,na.rm=TRUE) - min(x$y,na.rm=TRUE)
 
 
-	if(xms=="OR"||xms=="RR"||xms=="RD"){
+	if(xms=="OR"||xms=="RR"||xms=="RD"||xms=="HR"){
 
 	study <- x$study
 	treat <- x$treat

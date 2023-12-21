@@ -2,7 +2,7 @@ netplot <- function(x,text=TRUE,col="black",bg="blue",base.lwd=1,base.cex=1){			
 
 	xms <- x$measure
 
-	if(xms=="OR"||xms=="RR"||xms=="RD"){
+	if(xms=="OR"||xms=="RR"||xms=="RD"||xms=="HR"){
 
 	study <- x$study
 	trt <- x$trt

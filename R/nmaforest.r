@@ -2,7 +2,7 @@ nmaforest <- function(x,method="NH",col.plot="black",digits=3,ascending=TRUE){
 
 	xms <- x$measure
 
-	if((xms=="RD")||(xms=="MD")||(xms=="SMD")){
+	if((xms=="RD")||(xms=="MD")||(xms=="SMD")||(xms=="HR")){
 	
 	nmx <- nma(x,method=method)
 	
