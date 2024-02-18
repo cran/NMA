@@ -1,3 +1,7 @@
+# NMA 1.4-2 (2024-02-18)
+
+- Reference information is updated.
+
 # NMA 1.4-1 (2023-12-21)
 
 - A new option for survival outcome is added.

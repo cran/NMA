@@ -21,9 +21,9 @@ A league table is generated for all possible pairs of the treatments. The league
 \references{
 Nikolakopoulou, A., White, I. R., and Salanti, G. (2021). Network meta-analysis. In: Schmid, C. H., Stijnen, T., White, I. R., eds. \emph{Handbook of Meta-Analysis}. CRC Press; pp. 187-217.
 
-Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1652}.
+Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods} \strong{14}, 731-741.
 
-Noma, H., Hamura, Y., Sugasawa, S., and Furukawa, T. A. (2023). Improved methods to construct prediction intervals for network meta-analysis. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1651}.
+Noma, H., Hamura, Y., Sugasawa, S., and Furukawa, T. A. (2023). Improved methods to construct prediction intervals for network meta-analysis. \emph{Research Synthesis Methods} \strong{14}, 794-806.
 
 White, I. R., Barrett, J. K., Jackson, D., and Higgins, J. P. (2012). Consistency and inconsistency in network meta-analysis: model estimation using multivariate meta-regression. \emph{Research Synthesis Methods} \strong{3}, 111-125.
 }

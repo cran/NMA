@@ -14,9 +14,9 @@ Noma, H. (2023a). Sidesplitting using network meta-regression. Jxiv, 493. \doi{1
 
 Noma, H. (2023b). Within-study covariance estimators for network meta-analysis with contrast-based approach. Jxiv, 490. \doi{10.51094/jxiv.490}.
 
-Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023a). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1652}.
+Noma, H., Hamura, Y., Gosho, M., and Furukawa, T. A. (2023a). Kenward-Roger-type corrections for inference methods of network meta-analysis and meta-regression. \emph{Research Synthesis Methods} \strong{14}, 731-741.
 
-Noma, H., Hamura, Y., Sugasawa, S., and Furukawa, T. A. (2023b). Improved methods to construct prediction intervals for network meta-analysis. \emph{Research Synthesis Methods}, \doi{10.1002/jrsm.1651}.
+Noma, H., Hamura, Y., Sugasawa, S., and Furukawa, T. A. (2023b). Improved methods to construct prediction intervals for network meta-analysis. \emph{Research Synthesis Methods} \strong{14}, 794-806.
 
 Noma, H., Maruo, K., Tanaka, S. and Furukawa, T. A. (2023c). NMA: R package for network meta-analysis based on the multivariate meta-analysis and meta-regression models. Forthcoming.
 
