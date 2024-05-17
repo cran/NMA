@@ -274,6 +274,8 @@ econtrast5 <- function(X1,X2,X3){		# measure="SMD"
 	x2 <- X2[,i]
 	x3 <- X3[,i]
 	
+	z3[z3<1] <- 1
+	
 	#s2 <- (z2 + x2)/2
 	s2 <- ((z3-1)*z2*z2 + (x3-1)*x2*x2)/(z3+x3-2)
     

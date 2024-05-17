@@ -1,6 +1,6 @@
-fd0f4acdf9efe48d4930dae1a77efdd6 *DESCRIPTION
+03cb4101947cdbc3cd2dff820492b416 *DESCRIPTION
 b90f2f2098b26361b160b4abb79c8881 *NAMESPACE
-00187fd96495fd3b36986f35a3411061 *NEWS.md
+bdb6ed11f61e973adcaa83b1200a5c70 *NEWS.md
 aa17767c73ca2c24da44be680e321589 *R/global.ict.r
 06040a3357a34f152a141a05f4550faf *R/local.ict.r
 d34103209e41b1dfb79fb011e92f120c *R/netplot.r
@@ -13,10 +13,10 @@ f62ae9213de2e85d81353c0471ddf598 *R/nmarank.r
 acc9dea4df6e3fd93539299ba13e3353 *R/nmareg.r
 bfa6701487e3e494cd0a9c5f14f2425b *R/nmaweight.r
 3c607cd71e4fd810913a747990326915 *R/obj.forest.r
-94556fef85adcd4bfff8f7c259ab335c *R/pairwise.r
+ee59de051314cf71fe0046a731751747 *R/pairwise.r
 f1dcaa42fa8f0ca61e9fc05c9c7cb4d5 *R/random.icm.r
 28c342d2051c5719518e693c78df7e68 *R/rdc.r
-de76772ede5bf2600978c165abf4afff *R/setup.r
+ad4e0288543c23fadb7f4097b13317aa *R/setup.r
 bfef4d0a910c7cfe9b07683964261e28 *R/sidesplit.r
 3717014788a713cf834265a6c0f82e28 *R/transitivity.r
 afbe4209b3bb961ba3e41cbfe79ea507 *build/partial.rdb

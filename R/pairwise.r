@@ -73,20 +73,24 @@ pairwise <- function(x,method="REML"){
 					ci <- d2
 					di <- n2 - d2
 					
-					ei <- escalc(xms,ai=ci,bi=di,ci=ai,di=bi)
-					rmi <- rma(ei$yi,ei$vi,method=method)
+					if((length(ai)>=1)&&(length(ci)>=1)){
 					
-					if(n.i>=3)  egi <- regtest(rmi, model="lm")
+						ei <- escalc(xms,ai=ci,bi=di,ci=ai,di=bi)
+						rmi <- rma(ei$yi,ei$vi,method=method)
 					
-					R1 <- c(rmi$beta,rmi$ci.lb,rmi$ci.ub)
-					if(xms=="OR"||xms=="RR")		R1 <- exp(R1)
-					if(n.i<3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,NA)
-					if(n.i>=3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,egi$pval)
+						if(n.i>=3)  egi <- regtest(rmi, model="lm")
+					
+						R1 <- c(rmi$beta,rmi$ci.lb,rmi$ci.ub)
+						if(xms=="OR"||xms=="RR")		R1 <- exp(R1)
+						if(n.i<3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,NA)
+						if(n.i>=3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,egi$pval)
 
-					R3 <- c(n.i,R1,R2)
+						R3 <- c(n.i,R1,R2)
 					
-					Q1 <- rbind(Q1,R3)
-					rname <- c(rname,paste0(k," vs. ",h))
+						Q1 <- rbind(Q1,R3)
+						rname <- c(rname,paste0(k," vs. ",h))
+						
+					}
 					
 			}
 			
@@ -192,19 +196,23 @@ pairwise <- function(x,method="REML"){
 			
 					}
 					
-					ei <- escalc(xms,m1i=m2,sd1i=s2,n1i=n2,m2i=m1,sd2i=s1,n2i=n1)
-					rmi <- rma(ei$yi,ei$vi,method=method)
+					if((length(m1)>=1)&&(length(m2)>=1)){
 					
-					if(n.i>=3)  egi <- regtest(rmi, model="lm")
+						ei <- escalc(xms,m1i=m2,sd1i=s2,n1i=n2,m2i=m1,sd2i=s1,n2i=n1)
+						rmi <- rma(ei$yi,ei$vi,method=method)
 					
-					R1 <- c(rmi$beta,rmi$ci.lb,rmi$ci.ub)
-					if(n.i<3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,NA)
-					if(n.i>=3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,egi$pval)
+						if(n.i>=3)  egi <- regtest(rmi, model="lm")
+					
+						R1 <- c(rmi$beta,rmi$ci.lb,rmi$ci.ub)
+						if(n.i<3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,NA)
+						if(n.i>=3)  R2 <- c(rmi$pval,rmi$tau2,.01*rmi$I2,rmi$H2,egi$pval)
 
-					R3 <- c(n.i,R1,R2)
+						R3 <- c(n.i,R1,R2)
 					
-					Q1 <- rbind(Q1,R3)
-					rname <- c(rname,paste0(k," vs. ",h))
+						Q1 <- rbind(Q1,R3)
+						rname <- c(rname,paste0(k," vs. ",h))
+						
+					}
 					
 			}
 			
