@@ -8,7 +8,7 @@ sidesplit(x)
 \item{x}{Output object of \code{setup}}
 }
 \value{
-Results of the sidesplitting for all possible treatment pairs are presented.
+The results of the sidesplitting for all possible treatment pairs are provided.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{reference}: Reference treatment category.
@@ -23,7 +23,7 @@ Noma's sidesplitting for quantifying direct and indirect evidence for all possib
 \references{
 Dias, S., Welton, N. J., Caldwell, D. M., and Ades, A. E. (2010). Checking consistency in mixed treatment comparison meta-analysis. \emph{Statistics in Medicine} \strong{29}, 932-944.
 
-Noma, H. (2023). Sidesplitting using network meta-regression. Jxiv, 493. \doi{10.51094/jxiv.493}.
+Noma, H. (2024). Sidesplitting using network meta-regression. \emph{Japanese Journal of Biometrics} \strong{44}, 107-118.
 
 Noma, H., Tanaka, S., Matsui, S., Cipriani, A., and Furukawa, T. A. (2017). Quantifying indirect evidence in network meta-analysis. \emph{Statistics in Medicine} \strong{36}, 917-927.
 }

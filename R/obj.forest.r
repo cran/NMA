@@ -2,7 +2,7 @@ obj.forest <- function(x,method="NH",digits=3,ascending=TRUE){
 
 	xms <- x$measure
 
-	if((xms=="RD")||(xms=="MD")||(xms=="SMD")||(xms=="HR")){
+	if((xms=="RD")||(xms=="MD")||(xms=="SMD")||xms=="SPD"){
 	
 	nmx <- nma(x,method=method)
 	
@@ -48,7 +48,7 @@ obj.forest <- function(x,method="NH",digits=3,ascending=TRUE){
 	
 	}
 
-	if((xms=="OR")||(xms=="RR")){
+	if((xms=="OR")||(xms=="RR")||(xms=="HR")){
 
 	nmx <- nma(x,method=method,eform=TRUE)
 	

@@ -11,7 +11,7 @@ obj.forest(x,method="NH",digits=3,ascending=TRUE)
 \item{ascending}{Type of order. Default is ascending order, but it can be changed to descending order changing to \code{FALSE}.}
 }
 \value{
-Numerical objects of ranked forest plot is generated. They can be used for \code{forestplot} function of \code{forestplot} package to make a customized ranked forest plot.
+Numerical objects of ranked forest plot is produced. They may be used for \code{forestplot} function of \code{forestplot} package to make a customized ranked forest plot.
 \itemize{
 \item \code{labeltext}: A matrix that presents the label text table of the forestplot.
 \item \code{coef}: A matrix that presents the point estimates and confidence limits.
@@ -19,7 +19,7 @@ Numerical objects of ranked forest plot is generated. They can be used for \code
 }
 }
 \description{
-Numerical objects of ranked forest plot for the synthesis results of network meta-analysis are generated. These objects can be used to make a customized forest plot using \code{forestplot} function of \code{forestplot} package.
+Numerical objects of ranked forest plot for the synthesis results of network meta-analysis are generated. These objects may be used to make a customized forest plot using \code{forestplot} function of \code{forestplot} package.
 }
 \examples{
 data(heartfailure)

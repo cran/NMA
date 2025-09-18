@@ -11,10 +11,10 @@ nmarank(x, B=20000, method="NH", ascending=TRUE)
 
 \item{method}{Estimation and prediction method. \code{NH}: Noma-Hamura's improved REML-based methods (default). \code{REML}: The ordinary REML method. \code{fixed}: Fixed-effect model.}
 
-\item{ascending}{A logical value that specify whether the ranking is defined by ascending or descending order.}
+\item{ascending}{A logical value that specifies whether the ranking is defined by ascending or descending order.}
 }
 \value{
-Results of the ranking statistics of network meta-analysis are provided. Also, ranking probability plots are generated.
+The results of the ranking statistics of network meta-analysis are provided. Also, ranking probability plots are produced.
 \itemize{
 \item \code{SUCRA}: SUCRA estimates of individual treatment by parametric bootstrap.
 \item \code{MEANRANK}: Mean rank estimates of individual treatment by parametric bootstrap.
@@ -25,6 +25,8 @@ Results of the ranking statistics of network meta-analysis are provided. Also, r
 Ranking statistics of network meta-analysis such as SUCRA, MEANRANK, and probability of ranking are calculated by parametric bootstrap.
 }
 \references{
+Chaimani, A., Higgins, J. P., Mavridis, D., Spyridonos, P., and Salanti, G. (2013). Graphical tools for network meta-analysis in STATA. \emph{PLoS One} \strong{8}, e76654.
+
 Salanti, G., Ades, A. E. and Ioannidis, J. P. (2011). Graphical methods and numerical summaries for presenting results from multiple-treatment meta-analysis: An overview and tutorial. \emph{Journal of Clinical Epidemiology} \strong{64}, 163–171.
 }
 \examples{

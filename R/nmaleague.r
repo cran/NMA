@@ -2,7 +2,7 @@ nmaleague <- function(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=N
 
 	xms <- x$measure	
 
-	if(xms=="OR"||xms=="RR"||xms=="RD"||xms=="HR"){
+	if(xms=="OR"||xms=="RR"||xms=="RD"||xms=="HR"||xms=="SPD"){
 
 	study <- x$study
 	treat <- x$treat

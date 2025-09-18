@@ -319,7 +319,7 @@ econtrast5 <- function(X1,X2,X3){		# measure="SMD"
 }
 
 
-econtrast6 <- function(X1,X2){		# measure="RR"
+econtrast6 <- function(X1,X2){		# measure="HR"
   
   N <- dim(X1)[1]
   p <- dim(X1)[2]
@@ -333,8 +333,11 @@ econtrast6 <- function(X1,X2){		# measure="RR"
     
     x1 <- X1[,i]
     x2 <- X2[,i]
-    
-    y[,(i-1)] <- log(x1/x2) - log(z1/z2)
+	
+	pr1 <- x1/x2
+	pr2 <- z1/z2
+	
+    y[,(i-1)] <- log(-log(1-pr1)) - log(-log(1-pr2))
     
   }
   
@@ -347,8 +350,14 @@ econtrast6 <- function(X1,X2){		# measure="RR"
     
     x1 <- X1[,i]
     x2 <- X2[,i]
+
+	pr1 <- x1/x2
+	pr2 <- z1/z2
+	
+	m1 <- x2
+	m2 <- z2
     
-    s11 <- 1/z1 + 1/x1
+    s11 <- (((pr1-1)*log(1-pr1))^-2)*(pr1*(1-pr1)/m1) + (((pr2-1)*log(1-pr2))^-2)*(pr2*(1-pr2)/m2)
     
     S <- cbind(S, s11)
     
@@ -357,7 +366,7 @@ econtrast6 <- function(X1,X2){		# measure="RR"
       w1 <- X1[,j]
       w2 <- X2[,j]
       
-      s11 <- 1/z1 + (x1 - x1) + (w1 - w1)	
+      s11 <- (((pr2-1)*log(1-pr2))^-2)*(pr2*(1-pr2)/m2) + (x1 - x1) + (w1 - w1)	
       S <- cbind(S, s11)
       
     }
@@ -367,8 +376,14 @@ econtrast6 <- function(X1,X2){		# measure="RR"
   x1 <- X1[,p]
   x2 <- X2[,p]
   
-  s11 <- 1/z1 + 1/x1
-  
+  pr1 <- x1/x2
+  pr2 <- z1/z2
+	
+  m1 <- x2
+  m2 <- z2
+    
+  s11 <- (((pr1-1)*log(1-pr1))^-2)*(pr1*(1-pr1)/m1) + (((pr2-1)*log(1-pr2))^-2)*(pr2*(1-pr2)/m2)
+      
   S <- cbind(S, s11); colnames(S) <- NULL
   
   mng2 <- list(y=y,S=S)
@@ -885,6 +900,91 @@ setup <- function(study,trt,d=NULL,n=NULL,m=NULL,s=NULL,z=NULL,measure,ref,data=
 	return(mng2)
   
   }
+
+    if(measure=="SPD"){
+
+	study <- data[, deparse(substitute(study))]
+	trt <- data[, deparse(substitute(trt))]
+	d <- data[, deparse(substitute(d))]
+	n <- data[, deparse(substitute(n))]
+
+	study <- as.numeric(factor(study))
+
+    T1 <- ttrt(trt,ref=ref)
+	treat <- T1$code
+
+	N <- max(study)
+	p <- max(treat)
+	
+	L <- length(study)
+
+	X1 <- X2 <- matrix(rep(NA, times=N*p), N)
+
+	for(i in 1:L){
+  
+		k <- study[i]
+		l <- treat[i]
+  
+		X1[k,l] <- d[i]
+		X2[k,l] <- n[i]
+  
+	}
+
+	p <- p - 1
+
+	for(i in 1:N){
+  
+	if(length(which(X1[i,]==0))>0){
+		X1[i,] <- X1[i,] + 0.5
+		X2[i,] <- X2[i,] + 1
+	}
+  
+	if(length(which(X1[i,]==X2[i,]))>0){
+		X1[i,] <- X1[i,] + 0.5
+		X2[i,] <- X2[i,] + 1
+	}
+  
+	}
+
+	for(i in 1:N){		# data autmentation for the reference arms
+	
+		P3 <- X1[i,]/X2[i,]
+		M3 <- mean(P3,na.rm=TRUE)
+		
+		if(is.na(X1[i,1])){
+
+			X2[i,1] <- 0.00001
+			X1[i,1] <- 0.00001*M3
+			
+		}
+	
+	}
+
+	de1 <- econtrast3(X1,X2)				# creating the contrast-based summary statistics
+	y <- de1$y
+	S <- de1$S
+	
+	
+
+	n.arm <- numeric(N)
+
+	for(i in 1:N){
+
+		wi <- which(study==i)
+		n.arm[i] <- length(wi)
+	
+	}
+
+	dof <- sum(n.arm) - N - p			# degree-of-freedom for Q-statistic
+	
+	###
+
+	mng2 <- list(coding=T1$coding,reference=ref,measure=measure,covariate=covariate,N=N,p=p,df=dof,study=study,trt=trt,treat=treat,d=d,n=n,Z=Z,y=y,S=S)
+  
+	return(mng2)
+  
+  }
+  
 
 }
 

@@ -8,7 +8,7 @@ global.ict(x)
 \item{x}{Output object of \code{setup}}
 }
 \value{
-Results of the global inconsistency test are presented.
+The results of the global inconsistency test are prrovided.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{reference}: Reference treatment category.
@@ -29,6 +29,8 @@ Higgins' global inconsistency test based on the design-by-treatment interaction 
 Higgins, J. P., Jackson, D., Barrett, J. K., Lu, G., Ades, A. E., and White, I. R. (2012). Consistency and inconsistency in network meta-analysis: concepts and models for multi-arm studies. \emph{Research Synthesis Methods} \strong{3}, 98-110.
 
 Jackson, D., Boddington, P., and White, I. R. (2016). The design-by-treatment interaction model: a unifying framework for modelling loop inconsistency in network meta-analysis. \emph{Research Synthesis Methods} \strong{7}, 329-332.
+
+White, I. R., Barrett, J. K., Jackson, D., and Higgins, J. P. (2012). Consistency and inconsistency in network meta-analysis: model estimation using multivariate meta-regression. \emph{Research Synthesis Methods} \strong{3}, 111-125.
 }
 \examples{
 data(heartfailure)

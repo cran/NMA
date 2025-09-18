@@ -8,7 +8,7 @@ nmaweight(x)
 \item{x}{Output object of \code{setup}}
 }
 \value{
-Contribution weight matrices for the consistency model are presented. Also, a heatmap for the contribution matrix of overall evidence is presented.
+Contribution weight matrices for the consistency model are provided. Also, a heatmap for the contribution matrix of overall evidence is presented.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{Contribution of direct and indirect information}: Contribution rates of direct and indirect evidence for individual treatment pairs.

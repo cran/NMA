@@ -22,9 +22,11 @@ Summary statistics of the covariate among different study designs and its summar
 }
 }
 \description{
-To check transitivity on the network, summary statistics of a certain covariate among different study designs are presented. Also, a summary plot for these statistics is presented.
+To check transitivity on the network, summary statistics of a certain covariate among different study designs are provided. Also, a summary plot for these statistics is presented.
 }
 \references{
+Cipriani, A., Furukawa, T. A., Salanti, G., et al. (2018). Comparative efficacy and acceptability of 21 antidepressant drugs for the acute treatment of adults with major depressive disorder: a systematic review and network meta-analysis. \emph{Lancet} \strong{391}, 1357-1366.
+
 Salanti, G. (2012). Indirect and mixed-treatment comparison, network, or multiple-treatments meta-analysis: many names, many benefits, many concerns for the next generation evidence synthesis tool. \emph{Research Synthesis Methods} \strong{3}, 80-97. 
 }
 \examples{

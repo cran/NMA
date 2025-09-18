@@ -8,7 +8,7 @@ nmaQ(x)
 \item{x}{Output object of \code{setup}}
 }
 \value{
-Multivariate Q-statistic and its factorized ones (within and between designs) are presented.
+Multivariate Q-statistic and its factorized ones (within and between designs) are provided.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{number of studies}: The number of synthesized studies.
@@ -17,7 +17,7 @@ Multivariate Q-statistic and its factorized ones (within and between designs) ar
 }
 }
 \description{
-Multivariate Q-statistic and its factorized versions (within and between designs) are presented. P-values of the corresponding Q-tests are also presented.
+Multivariate Q-statistic and its factorized versions (within and between designs) are provided. P-values of the corresponding Q-tests are also presented.
 }
 \references{
 Jackson, D., White, I. R., and Riley, R. D. (2012). Quantifying the impact of between-study heterogeneity in multivariate meta-analyses. \emph{Statistics in Medicine} \strong{31}: 3805-3820. 

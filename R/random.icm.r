@@ -5,7 +5,7 @@ random.icm <- function(x){
 	N <- x$N
 	p <- x$p
 
-	if(xms=="OR"||xms=="RR"||xms=="RD"){
+	if(xms=="OR"||xms=="RR"||xms=="RD"||xms=="HR"||xms=="SPD"){
 
 	study <- x$study
 	treat <- x$treat
@@ -146,7 +146,7 @@ random.icm <- function(x){
 	
 	}
 
-	if(xms=="RD"){
+	if(xms=="RD"||xms=="SPD"){
 
 		y <- (jwi$d1/jwi$n1) - (jwi$d2/jwi$n2)
 		jwi$y <- y
@@ -165,6 +165,49 @@ random.icm <- function(x){
 				w1 <- wi[1]
 				C1 <- (jwi$d1[w1])*(jwi$n1[w1] - jwi$d1[w1])/(jwi$n1[w1]^3)
 				if(C1==Inf)	C1 <- (jwi$d1[w1] + .5)*(jwi$n1[w1] - jwi$d1[w1] + .5)/((jwi$n1[w1]+1)^3)
+			
+				for(j in 1:length(wi)){
+					ai <- 1:length(wi)
+					bi <- setdiff(ai,j)
+					Vd[wi[j],wi[bi]] <- C1
+				}
+				
+			}
+	
+		}
+	
+	}
+
+	if(xms=="HR"){
+
+		P1i <- jwi$d1/jwi$n1
+		P2i <- jwi$d2/jwi$n2
+		
+		w0i <- which((jwi$d1==0)|(jwi$d2==0))
+
+		if(length(w0i)>=1){
+
+			P1i[w0i] <- (jwi$d1[w0i]+.5)/(jwi$n1[w0i]+1)
+			P2i[w0i] <- (jwi$d2[w0i]+.5)/(jwi$n2[w0i]+1)
+		
+		}
+
+		y <- log(-log(1-P1i)) - log(-log(1-P2i))
+		jwi$y <- y
+
+		VTE <- (P1i*(1-P1i)/n1)*(((P1i-1)*log(1-P1i))^-2) + (P2i*(1-P2i)/n2)*(((P2i-1)*log(1-P2i))^-2)
+
+		Vd <- diag(VTE)
+
+		for(i in 1:N){
+	
+			wi <- which(jwi$study==i)
+		
+			if(length(wi)>=2){
+		
+				w1 <- wi[1]
+				C1 <- (jwi$d1[w1])^-1 - (jwi$n1[w1])^-1
+				if(C1==Inf)	C1 <- (jwi$d1[w1] + .5)^-1 - (jwi$n1[w1] + 1)^-1
 			
 				for(j in 1:length(wi)){
 					ai <- 1:length(wi)

@@ -12,14 +12,14 @@ nmareg(x, z, treats)
 \item{treats}{A vector that specifies treatments to be assessed effect modifications that correspond to the elements of outcome vectors \code{y} in \code{x} (please specify the treatment numbers of \code{coding}; multiple outcomes can be specified jointly, as a vector).}
 }
 \value{
-Results of the network meta-regression analysis are presented.
+The results of the network meta-regression analysis are provided.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{Covariates}: Covariate that specified in \code{setup}.
 \item \code{Outcome evaluated the effect modifications}: Treatment contrasts that the effect modifications are evaluated.
 \item \code{Coefficients}: Estimates, their SEs, Wald-type 95\% confidence intervals, and P-values for the regression parameters (\code{cons}: intercept, \code{beta}: regression coefficient for the explanatory variable).
 \item \code{Between-studies_SD}: Between-studies SD (tau) estimate.
-\item \code{Between-studies_COR}: Between-studies correlation coefficient (should be 0.50).
+\item \code{Between-studies_COR}: Between-studies correlation coefficient (ought to be 0.50).
 }
 }
 \description{

@@ -12,14 +12,14 @@ nmafunnel(x, method="NH", legends="topright")
 \item{legends}{Location of the legend on the plot (default: \code{topright})}
 }
 \value{
-Comparison-adjusted funnel plot for the studies involving treatment 1 (reference treatment specified in \code{setup}) is presented.
+Comparison-adjusted funnel plot for the studies involving treatment 1 (reference treatment specified in \code{setup}) is produced.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{summary}: \code{design}: design of studies, \code{N}: number of the corresponding studies, \code{n}: total sample size.
 }
 }
 \description{
-A comparison-adjusted funnel plot for the studies involving treatment 1 (reference treatment specified in \code{setup}) is generated.
+A comparison-adjusted funnel plot for the studies involving treatment 1 (reference treatment specified in \code{setup}) is produced.
 }
 \references{
 Chaimani, A. and Salanti, G. (2012). Using network meta-analysis to evaluate the existence of small-study effects in a network of interventions. \emph{Research Synthesis Methods} \strong{3}, 161–176.

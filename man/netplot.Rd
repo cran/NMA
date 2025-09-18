@@ -6,14 +6,14 @@ netplot(x,text=TRUE,col="black",bg="blue",base.lwd=1,base.cex=1)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
-\item{text}{A logical value that specify whether the treatment labels are added}
+\item{text}{A logical value that specifies whether the treatment labels are added}
 \item{col}{Outer circumferential color of the nodes (default: black)}
 \item{bg}{Color of the node (default: blue)}
 \item{base.lwd}{A parameter adjusting edge widths (default: 1)}
 \item{base.cex}{A parameter adjusting node sizes (default: 1)}
 }
 \value{
-A networkplot is generated.
+A networkplot is produced.
 }
 \description{
 Generating a networkplot. The sizes of the nodes and edges are proportional to the corresponding sample sizes of direct comparisons. 

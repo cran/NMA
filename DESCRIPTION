@@ -1,23 +1,27 @@
 Package: NMA
 Type: Package
-Title: Network Meta-Analysis Based on Multivariate Meta-Analysis Models
-Version: 1.4-3
-Date: 2024-05-17
+Title: Network Meta-Analysis Based on Multivariate Meta-Analysis and
+        Meta-Regression Models
+Version: 2.1-1
+Date: 2025-09-19
 Authors@R: 
   c( person("Hisashi", "Noma", , "noma@ism.ac.jp", role = c("aut","cre"), comment = c(ORCID = "0000-0002-2520-9949")), person("Kazushi", "Maruo", role=c("aut")), person("Shiro", "Tanaka", role=c("aut")), person("Toshi A.", "Furukawa", role=c("aut")))
 Maintainer: Hisashi Noma <noma@ism.ac.jp>
-Description: Network meta-analysis tools based on contrast-based approach using the multivariate meta-analysis and meta-regression models (Noma et al. (2023) <Forthcoming>). Standard analysis tools for network meta-analysis and meta-regression (e.g., synthesis analysis, ranking analysis, and creating league table) are available by simple commands. For inconsistency analyses, the local and global inconsistency tests based on the Higgins' design-by-treatment interaction model can be applied. Also, the side-splitting and the Jackson's random inconsistency model are available. Standard graphical tools for network meta-analysis (e.g., network plot, ranked forest plot, and transitivity analysis) can also be utilized. For the synthesis analyses, the Noma-Hamura's improved REML (restricted maximum likelihood)-based methods (Noma et al. (2023) <doi:10.1002/jrsm.1652> <doi:10.1002/jrsm.1651>) are adopted as the default methods. 
-URL: https://www.ism.ac.jp/~noma/file/software/NMA.r
+Description: Network meta-analysis tools based on contrast-based approach using the multivariate meta-analysis and meta-regression models (Noma et al. (2025) <doi:10.1101/2025.09.15.25335823>). Comprehensive analysis tools for network meta-analysis and meta-regression (e.g., synthesis analysis, ranking analysis, and creating league table) are available through simple commands. For inconsistency assessment, the local and global inconsistency tests based on the Higgins' design-by-treatment interaction model are available. In addition, the side-splitting methods and Jackson's random inconsistency model can be applied. Standard graphical tools for network meta-analysis, including network plots, ranked forest plots, and transitivity analyses, are also provided. For the synthesis analyses, the Noma-Hamura's improved REML (restricted maximum likelihood)-based methods (Noma et al. (2023) <doi:10.1002/jrsm.1652> <doi:10.1002/jrsm.1651>) are adopted as the default methods. 
+URL: https://doi.org/10.1101/2025.09.15.25335823
 Depends: R (>= 3.5.0)
-Imports: stats, grid, MASS, ggplot2, metafor, stringr, forestplot
+Imports: stats, grid, MASS, ggplot2, metafor, stringr, forestplot,
+        nleqslv
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2024-05-17 11:24:16 UTC; Hisashi
-Author: Hisashi Noma [aut, cre] (<https://orcid.org/0000-0002-2520-9949>),
+Packaged: 2025-09-18 22:58:27 UTC; nomah
+Author: Hisashi Noma [aut, cre] (ORCID:
+    <https://orcid.org/0000-0002-2520-9949>),
   Kazushi Maruo [aut],
   Shiro Tanaka [aut],
   Toshi A. Furukawa [aut]
 Repository: CRAN
-Date/Publication: 2024-05-17 11:40:12 UTC
+Date/Publication: 2025-09-18 23:10:02 UTC

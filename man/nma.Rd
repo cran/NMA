@@ -7,12 +7,12 @@ nma(x, eform=FALSE, method="NH")
 \arguments{
 \item{x}{Output object of \code{setup}}
 
-\item{eform}{A logical value that specify whether the outcome should be transformed by exponential function (default: FALSE)}
+\item{eform}{A logical value that specifies whether the outcome ought to be transformed by exponential function (default: FALSE)}
 
 \item{method}{Estimation and prediction method. \code{NH}: Noma-Hamura's improved REML-based methods (default). \code{REML}: The ordinary REML method. \code{fixed}: Fixed-effect model.}
 }
 \value{
-Results of the network meta-analysis using the multivariate meta-analysis model.
+The results of the network meta-analysis using the multivariate meta-analysis model.
 \itemize{
 \item \code{coding}: A table that presents the correspondence between the numerical code and treatment categories (the reference category is coded as 1).
 \item \code{reference}: Reference treatment category.
