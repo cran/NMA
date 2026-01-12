@@ -2,8 +2,8 @@ Package: NMA
 Type: Package
 Title: Network Meta-Analysis Based on Multivariate Meta-Analysis and
         Meta-Regression Models
-Version: 2.1-1
-Date: 2025-09-19
+Version: 2.1-2
+Date: 2026-01-12
 Authors@R: 
   c( person("Hisashi", "Noma", , "noma@ism.ac.jp", role = c("aut","cre"), comment = c(ORCID = "0000-0002-2520-9949")), person("Kazushi", "Maruo", role=c("aut")), person("Shiro", "Tanaka", role=c("aut")), person("Toshi A.", "Furukawa", role=c("aut")))
 Maintainer: Hisashi Noma <noma@ism.ac.jp>
@@ -17,11 +17,11 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
 NeedsCompilation: no
-Packaged: 2025-09-18 22:58:27 UTC; nomah
+Packaged: 2026-01-12 00:47:45 UTC; nomah
 Author: Hisashi Noma [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-2520-9949>),
   Kazushi Maruo [aut],
   Shiro Tanaka [aut],
   Toshi A. Furukawa [aut]
 Repository: CRAN
-Date/Publication: 2025-09-18 23:10:02 UTC
+Date/Publication: 2026-01-12 01:20:02 UTC

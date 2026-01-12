@@ -11,8 +11,9 @@ nmarank(x, B=20000, method="NH", ascending=TRUE)
 
 \item{method}{Estimation and prediction method. \code{NH}: Noma-Hamura's improved REML-based methods (default). \code{REML}: The ordinary REML method. \code{fixed}: Fixed-effect model.}
 
-\item{ascending}{A logical value that specifies whether the ranking is defined by ascending or descending order.}
+\item{ascending}{A logical value that specifies whether the ranking is defined by ascending or descending order. Set \code{ascending=TRUE} if a smaller value of the effect measure indicates a better outcome (e.g., mortality, frequency of adverse events, or other "harmful" outcomes). In this case, the treatment with the smallest estimate will be ranked first. Set \code{ascending=FALSE} if a larger value of the effect measure indicates a better outcome (e.g., cure rate, response rate, or other "beneficial" outcomes). In this case, the treatment with the largest estimate will be ranked first.}
 }
+
 \value{
 The results of the ranking statistics of network meta-analysis are provided. Also, ranking probability plots are produced.
 \itemize{

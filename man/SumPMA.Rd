@@ -1,13 +1,13 @@
-\name{pairwise}
-\alias{pairwise}
+\name{SumPMA}
+\alias{SumPMA}
 \title{Pairwise meta-analyses for all treatment pairs with direct comparisons on the network}
 \usage{
-pairwise(x,method="SJ",test="knha")
+SumPMA(x,method="REML",test="z")
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
-\item{method}{Method of the estimation of pairwise meta-analysis. All possible options of \code{rma} function in \code{metafor} package is available (default: the Sidik-Jonkman method (\code{SJ})).}
-\item{test}{Method of the statistical inference for pairwise meta-analysis. All possible options of \code{rma} function in \code{metafor} package is available (default: the Hartung-Knapp adjustment (\code{knha})).}
+\item{method}{Method of the estimation of pairwise meta-analysis. All possible options of \code{rma} function in \code{metafor} package is available (default: the REML method (\code{REML})).}
+\item{test}{Method of the statistical inference for pairwise meta-analysis. All possible options of \code{rma} function in \code{metafor} package is available (default: the standard normal approximation (\code{z})).}
 }
 \value{
 The results of the meta-analyses for all possible treatment pairs are provided.
@@ -40,5 +40,5 @@ data(heartfailure)
 
 hf2 <- setup(study=study,trt=trt,d=d,n=n,measure="OR",ref="Placebo",data=heartfailure)
 
-pairwise(hf2,method="REML",test="z")
+SumPMA(hf2,method="REML",test="z")
 }

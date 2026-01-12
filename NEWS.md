@@ -1,3 +1,7 @@
+# NMA 2.1-2 (2026-01-12)
+
+- Some bugs are fixed.
+
 # NMA 2.1-1 (2025-09-19)
 
 - Network meta-analysis tools for survival outcome data are added.

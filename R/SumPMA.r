@@ -1,4 +1,4 @@
-pairwise <- function(x,method="SJ",test="knha"){
+SumPMA <- function(x,method="REML",test="z"){
 
 	xms <- x$measure
 

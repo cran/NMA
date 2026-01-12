@@ -1,6 +1,7 @@
-c1df489306bbedbe6a893d56ca33e9f2 *DESCRIPTION
-eb0cb8cf4a59efe2e29ed57b5121d2ad *NAMESPACE
-10d0b2374a6d9401c8abff23cbbb10e9 *NEWS.md
+8b74e446e5e96a6f726c07b3048b1ac6 *DESCRIPTION
+3accfc91e76bee1d51a3ce360c7189d6 *NAMESPACE
+8886e0bf6c126470c8e27dbbacd92767 *NEWS.md
+807efe84079c06024d85112129fa6290 *R/SumPMA.r
 659648d98767499b421e751d5df66220 *R/global.ict.r
 608ac1bd81358fdc95c0e26f393e5484 *R/local.ict.r
 b2db579081cc2bde62b8fccee7ffed88 *R/netplot.r
@@ -13,7 +14,6 @@ f62ae9213de2e85d81353c0471ddf598 *R/nmarank.r
 acc9dea4df6e3fd93539299ba13e3353 *R/nmareg.r
 cc32b1992f3996109df9b04f2e784720 *R/nmaweight.r
 10e3cc66e01c3a983606c317b9ee2976 *R/obj.forest.r
-8940746ae207666e38d098a061a4db6a *R/pairwise.r
 33ade52346b176dff2075350639d2d37 *R/random.icm.r
 28c342d2051c5719518e693c78df7e68 *R/rdc.r
 70711088424e20cad7869dad3acfcd71 *R/setup.r
@@ -32,6 +32,7 @@ e9923aa8597df55e322bb7fbcee515d7 *data/exdataRR.RData
 0cc1f4237c4a0083d54dc6b1b86f45fb *data/woods1.RData
 43cf62ad0b7cf73be94a79b51d92783c *data/woods2.RData
 11c5abbb5f21f2f6f17b4d39a3fe3f5f *man/NMA-package.Rd
+226f16f16af19f21ccb934b8a447c1c9 *man/SumPMA.Rd
 79dfd4b8d04579c17440cb97b241bcd0 *man/antidiabetic.Rd
 32a8218c2f1f720389762d8d3d20ea2a *man/diabetes.Rd
 00e5475c4eac1311a8b3722e9b19d0ab *man/exdataMD.Rd
@@ -46,11 +47,10 @@ d1dff6879b997fe1e2be2fb96e8092ff *man/nmaQ.Rd
 6c47f4b380f86d7ed4459480ea417202 *man/nmaforest.Rd
 2a58baccccc8f78335a5ff0ca8d91775 *man/nmafunnel.Rd
 08b058a31b3a1a8ec9a863ecd0c6fa88 *man/nmaleague.Rd
-75035d9600b4240e228c2fcdb68e7f8e *man/nmarank.Rd
+a93660094ca4f3c0344a10a46a43ea68 *man/nmarank.Rd
 68995298b80271ba9410f1c51db22648 *man/nmareg.Rd
 407720556213df888c49e2b95d08e5ce *man/nmaweight.Rd
 b9ba8aaff101edab86ef5cd0030eba59 *man/obj.forest.Rd
-2e898196b8ef704003771fbe0b149073 *man/pairwise.Rd
 5e7a5670a7d48f0eb1248b073aa00de7 *man/random.icm.Rd
 00d6bd9e7666305ecbfd2c527a5d5c9e *man/rdc.Rd
 1da4bbcd433b15e83bd17bdd43d77e0a *man/setup.Rd
