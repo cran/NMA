@@ -2,10 +2,12 @@
 \alias{nmaQ}
 \title{Multivariate Q-statistic and its factorization}
 \usage{
-nmaQ(x)
+nmaQ(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 Multivariate Q-statistic and its factorized ones (within and between designs) are provided.

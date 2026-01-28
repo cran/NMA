@@ -2,10 +2,12 @@
 \alias{local.ict}
 \title{Local inconsistency tests for all closed loops on the network}
 \usage{
-local.ict(x)
+local.ict(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the local inconsistency tests for all closed loops on the network are provided.

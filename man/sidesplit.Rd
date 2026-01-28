@@ -2,10 +2,12 @@
 \alias{sidesplit}
 \title{Sidesplitting for quantifying direct and indirect evidence for all possible treatment pairs and the inconsistency test}
 \usage{
-sidesplit(x)
+sidesplit(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the sidesplitting for all possible treatment pairs are provided.

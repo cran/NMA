@@ -1,4 +1,6 @@
-nmarank <- function(x, B=20000, method="NH",ascending=TRUE){
+nmarank <- function(x, B=20000, method="NH",ascending=TRUE,digits=3){
+
+call <- match.call()
 
 y <- x$y
 S <- x$S
@@ -488,7 +490,8 @@ if(method=="NH"){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
   
   return(R3)
 
@@ -553,7 +556,8 @@ if(method=="NH"){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
   
   return(R3)
 
@@ -625,7 +629,8 @@ if(method=="REML"){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
  
   return(R3)
 
@@ -690,7 +695,8 @@ if(method=="REML"){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
 
   return(R3)
 
@@ -836,7 +842,8 @@ FEM <- function(y,S){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
  
   return(R3)
 
@@ -901,7 +908,8 @@ FEM <- function(y,S){
 
   ord <- order(sucra,decreasing=TRUE)
 
-  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]])
+  R3 <- list(SUCRA=t(t(R2[ord,1])),MEANRANK=t(t(R2[ord,2])),RANKPROB=R2[ord,3:dim(R2)[2]],digits=digits,call=call)
+  class(R3) <- "nmarank"  
 
   return(R3)
 
@@ -911,4 +919,44 @@ FEM <- function(y,S){
 
 }
 
+
+
+print.nmarank <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("SUCRA:\n", sep = "")
+  A <- x[[1]]
+  ##
+  R <- round(A[,1],digits)
+  TAB <- cbind(
+    "SUCRA" = R
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("MEANRANK:\n", sep = "")
+  A <- x[[2]]
+  ##
+  R <- round(A[,1],digits)
+  TAB <- cbind(
+    "MEANRANK" = R
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("RANKPROB:\n", sep = "")
+  A <- x[[3]]
+  ##
+  TAB <- round(A,digits)
+  print(TAB)
+  cat("\n")
+  
+  invisible(x)
+  
+}
 

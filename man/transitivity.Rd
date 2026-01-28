@@ -2,7 +2,7 @@
 \alias{transitivity}
 \title{Checking transitivity}
 \usage{
-transitivity(x, z, gcol="blue", yrange)
+transitivity(x, z, gcol="blue", yrange, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
@@ -12,6 +12,8 @@ transitivity(x, z, gcol="blue", yrange)
 \item{gcol}{Color of the plot}
 
 \item{yrange}{Range of y-axis of the plot}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 Summary statistics of the covariate among different study designs and its summary plot are presented.

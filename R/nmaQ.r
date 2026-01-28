@@ -1,4 +1,6 @@
-nmaQ <- function(x){
+nmaQ <- function(x,digits=3){
+
+	call <- match.call()
 
 	study <- x$study
 	treat <- x$treat
@@ -108,12 +110,68 @@ nmaQ <- function(x){
 	colnames(R6) <- c("Q","df","P-value")
 	rownames(R6) <- c("Within designs","Between designs","Total")
 
-	R5 <- list("coding"=x$coding,"number of studies"=N,"Within designs (individual designs)"=R1,"Q-statistics"=R6)
+	R5 <- list("coding"=x$coding,"number of studies"=N,"Within designs (individual designs)"=R1,"Q-statistics"=R6,digits=digits,call=call)
 
+    class(R5) <- "nmaQ"  
 	return(R5)
 	
 }
 	
+print.nmaQ <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Number of studies: ", sep = "")
+  cat(x[[2]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Within designs (individual designs): ", sep = "")
+  cat("\n")
+  A <- x[[3]]
+  ##
+  design <- A[,1]
+  N <- round(A[,2])
+  n <- round(A[,3])
+  Q <- round(A[,4],digits)
+  df <- round(A[,5])
+  pval <- round(A[,6],digits)
+  TAB <- cbind(
+    "N" = N,
+	"n" = n,
+	"Q" = Q,
+	"df" = df,
+    "Pr(>Q)"  = pval
+  )
+  rownames(TAB) <- design
+  print(TAB)
+  cat("\n")
+
+  cat("Q-statistics: ", sep = "")
+  cat("\n")
+  A <- x[[4]]
+  ##
+  Q <- round(A[,1],digits)
+  df <- round(A[,2])
+  pval <- round(A[,3],digits)
+  TAB <- cbind(
+    "Q" = Q,
+    "df" = df,
+    "Pr(>Q)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  invisible(x)
+  
+}
 
 ###
 

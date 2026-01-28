@@ -1,5 +1,7 @@
 nmafunnel <- function(x, method="NH", legends="topright"){
 
+	call <- match.call()
+	
 	nmx <- nma(x,method=method)
 	coefx <- nmx[[5]][,1]
 
@@ -111,12 +113,32 @@ nmafunnel <- function(x, method="NH", legends="topright"){
 	
 	legend(legends, su4, pch = 19, col=su3, bg = "transparent")
 
-	message("Comparison adjusted funnel plot for the trials involving treatment 1 (as control)")
+	# message("Comparison adjusted funnel plot for the trials involving treatment 1 (as control)")
 
-	R5 <- list("coding"=x$coding,"summary"=R1)
+	R5 <- list("coding"=x$coding,"summary"=R1, call=call)
+	class(R5) <- "nmafunnel"
 
 	return(R5)
 
 }
 
+print.nmafunnel <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Summary: ", sep = "")
+  cat("\n")
+  A <- x[[2]]
+  print(A,row.names=FALSE)
+  cat("\n")
+
+  invisible(x)
+  
+}
 

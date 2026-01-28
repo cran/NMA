@@ -2,10 +2,12 @@
 \alias{global.ict}
 \title{Higgins' global inconsistency test}
 \usage{
-global.ict(x)
+global.ict(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the global inconsistency test are prrovided.

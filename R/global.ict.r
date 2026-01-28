@@ -1,4 +1,6 @@
-global.ict <- function(x){
+global.ict <- function(x,digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure
 
@@ -491,7 +493,7 @@ REMLIC <- function(y,S,X1,maxitr=200){
   R9 <- length(mu[-Qc1])			# df
   R10 <- 1 - pchisq(R8,df=R9)
   
-  R11 <- list("Coefficients"=R5,"Between-studies_SD"=R6,"Between-studies_COR"=R7,"X2-statistic"=R8,"df"=R9,"P-value"=R10)
+  R11 <- list("Coefficients"=R5,"Between-studies_SD"=R6,"Between-studies_COR"=R7,"X2-statistic"=R8,"df"=R9,"P-value"=R10,digits=digits,call=call)
     
   return(R11)
   
@@ -499,8 +501,9 @@ REMLIC <- function(y,S,X1,maxitr=200){
 
 C1 <- REMLIC(y,S,X1)
 
-C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,designs=des0,"Coefficients of the design-by-treatment interaction model"=C1[[1]],"Between-studies_SD"=C1[[2]],"Between-studies_COR"=C1[[3]],"X2-statistic"=C1[[4]],"df"=C1[[5]],"P-value"=C1[[6]])
+C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,designs=des0,"Coefficients of the design-by-treatment interaction model"=C1[[1]],"Between-studies_SD"=C1[[2]],"Between-studies_COR"=C1[[3]],"X2-statistic"=C1[[4]],"df"=C1[[5]],"P-value"=C1[[6]],digits=digits,call=call)
 
+class(C2) <- "global.ict"  
 return(C2)
 
 }
@@ -1007,8 +1010,9 @@ REMLIC <- function(y,S,X1,maxitr=200){
 
 C1 <- REMLIC(y,S,X1)
 
-C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,designs=des0,"Coefficients of the design-by-treatment interaction model"=C1[[1]],"Between-studies_SD"=C1[[2]],"Between-studies_COR"=C1[[3]],"X2-statistic"=C1[[4]],"df"=C1[[5]],"P-value"=C1[[6]])
+C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,designs=des0,"Coefficients of the design-by-treatment interaction model"=C1[[1]],"Between-studies_SD"=C1[[2]],"Between-studies_COR"=C1[[3]],"X2-statistic"=C1[[4]],"df"=C1[[5]],"P-value"=C1[[6]],digits=digits,call=call)
 
+class(C2) <- "global.ict"  
 return(C2)
 
 }
@@ -1018,3 +1022,79 @@ if(dof==0)	return("The degree-of-freedom of this network is 0.")
 }
 
 }
+
+
+
+print.global.ict <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x$reference)
+  cat("\n")
+  cat("\n")
+  
+  cat("Number of studies: ", sep = "")
+  cat(x[[3]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Designs: ", sep = "")
+  cat(x$designs)
+  cat("\n")
+  cat("\n")
+  
+  cat("Coefficients of the design-by-treatment interaction model:\n", sep = "")
+  A <- x[[5]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Between-studies SD: ", sep = "")
+  cat(round(x[[6]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("Between-studies COR: ", sep = "")
+  cat(round(x[[7]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("X2-statistic: ", sep = "")
+  cat(round(x[[8]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("df: ", sep = "")
+  cat(round(x[[9]]))
+  cat("\n")
+  cat("\n")
+
+  cat("P-value: ", sep = "")
+  cat(round(x[[10]],digits))
+  cat("\n")
+  cat("\n")
+  
+  invisible(x)
+  
+}
+

@@ -1,4 +1,6 @@
-SumPMA <- function(x,method="REML",test="z"){
+SumPMA <- function(x,method="REML",test="z",digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure
 
@@ -114,8 +116,8 @@ SumPMA <- function(x,method="REML",test="z"){
 		if(method=="SJ")	method <- "Sidik-Jonkman method"
 		if(test=="knha") test <- "Hartung-Knapp adjustment"
 		
-		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4)
-	
+		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4,digits=digits,call=call)
+		class(R4) <- "SumPMA"	
 		return(R4)
 	
 	}
@@ -239,8 +241,8 @@ SumPMA <- function(x,method="REML",test="z"){
 		if(method=="SJ")	method <- "Sidik-Jonkman method"
 		if(test=="knha") test <- "Hartung-Knapp adjustment"
 
-		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4)
-	
+		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4,digits=digits,call=call)
+		class(R4) <- "SumPMA"	
 		return(R4)
 	
 	}
@@ -371,8 +373,8 @@ SumPMA <- function(x,method="REML",test="z"){
 		if(method=="SJ")	method <- "Sidik-Jonkman method"
 		if(test=="knha") test <- "Hartung-Knapp adjustment"
 
-		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4)
-	
+		R4 <- list("coding"=x$coding,"measure"=xms,"method"=method,"test"=test,"Summary effect measures"=Q2,"Heterogeneity measures"=Q3,"Egger test"=Q4,digits=digits,call=call)
+		class(R4) <- "SumPMA"	
 		return(R4)
 	
 	}
@@ -380,11 +382,100 @@ SumPMA <- function(x,method="REML",test="z"){
 	if(is.null(rname)){
 	
 		R9 <- "There are no corresponding pairs that can be analyzed on the network."
+		class(R9) <- "SumPMA"	
 		return(R9)
 		
 	}
 	
 	}
 		
+}
+
+
+
+print.SumPMA <- function(x, digits = x$digits, ...) {
+
+  if(mode(x)=="character")	cat(x)
+
+  if(mode(x)!="character"){
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Measure: ", sep = "")
+  cat(x$measure)
+  cat("\n")
+  cat("\n")
+  
+  cat("Method: ", sep = "")
+  cat(x$method)
+  cat("\n")
+  cat("\n")
+  
+  cat("Test: ", sep = "")
+  cat(x$test)
+  cat("\n")
+  cat("\n")
+  
+  cat("Summary effect measures:\n", sep = "")
+  A <- x[[5]]
+  ##
+  N <- A[,1]
+  est <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "N" = N,
+    "Estimate" = est,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Heterogeneity measures:\n", sep = "")
+  A <- x[[6]]
+  ##
+  N <- A[,1]
+  tau2 <- round(A[,2],digits)
+  tau <- round(sqrt(A[,2]),digits)
+  I2 <- round(A[,3],digits)
+  H2 <- round(A[,4],digits)
+  TAB <- cbind(
+    "N" = N,
+    "tau" = tau,
+	"tau^2" = tau2,
+	"I^2" = I2,
+    "H^2"  = H2
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Egger test:\n", sep = "")
+  A <- x[[7]]
+  ##
+  N <- A[,1]
+  pval <- round(A[,2],digits)
+  TAB <- cbind(
+    "N" = N,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  invisible(x)
+  
+  }
+
 }
 

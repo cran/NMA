@@ -2,7 +2,7 @@
 \alias{nmareg}
 \title{Network meta-regression based on contrast-based approach}
 \usage{
-nmareg(x, z, treats)
+nmareg(x, z, treats, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
@@ -10,6 +10,8 @@ nmareg(x, z, treats)
 \item{z}{Covariate name vector}
 
 \item{treats}{A vector that specifies treatments to be assessed effect modifications that correspond to the elements of outcome vectors \code{y} in \code{x} (please specify the treatment numbers of \code{coding}; multiple outcomes can be specified jointly, as a vector).}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the network meta-regression analysis are provided.

@@ -2,10 +2,12 @@
 \alias{nmaweight}
 \title{Evaluating study weights and contribution matrix}
 \usage{
-nmaweight(x)
+nmaweight(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 Contribution weight matrices for the consistency model are provided. Also, a heatmap for the contribution matrix of overall evidence is presented.

@@ -1,4 +1,6 @@
-nma <- function(x, eform=FALSE, method="NH"){
+nma <- function(x, eform=FALSE, method="NH",digits=3){
+
+call <- match.call()
 
 y <- x$y
 S <- x$S
@@ -649,7 +651,7 @@ eKR <- function(y, S){
 fem0 <- FEM(y,S)
 Qs <- fem0$Q
 Ps <- 1 - pchisq(Qs,df=dof)
-Rs <- paste0("Q(df = ",round(dof),") = ",round(Qs,4),", p-value = ",round(Ps,4))
+Rs <- paste0("Q(df = ",round(dof),") = ",round(Qs,digits),", p-value = ",round(Ps,digits))
 
 Hs <- max( as.numeric(Qs/dof), 0)
 IH <- max(as.numeric( (Hs-1)/Hs ), 0)
@@ -679,7 +681,7 @@ if(method=="NH"||method=="REML"){
 	if(method=="NH") method <- "Noma-Hamura's improved REML-based inference and prediction methods"
 	if(method=="REML") method <- "Restricted maximum likelihood (REML) estimation and prediction based on the ordinary t-approximation"
 
-	R5 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,"method"=method,"Coef. (vs. treat 1)"=R2,"tau (Between-studies_SD) estimate"=R3,"tau2 (Between-studies_variance) estimate"=(R3*R3),"Multivariate H2-statistic"=Hs,"Multivariate I2-statistic"=R4,"Test for Heterogeneity"=Rs,"95%PI (vs. treat 1)"=R5)
+	R5 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,"method"=method,"Coef. (vs. treat 1)"=R2,"tau (Between-studies_SD) estimate"=R3,"tau2 (Between-studies_variance) estimate"=(R3*R3),"Multivariate H2-statistic"=Hs,"Multivariate I2-statistic"=R4,"Test for Heterogeneity"=Rs,"95%PI (vs. treat 1)"=R5,digits=digits,call=call)
 
 }
 
@@ -696,12 +698,157 @@ if(method=="fixed"){
 		fem0[[1]][,4] <- exp(fem0[[1]][,4])
 	}
 	
-	R5 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,"method"=method,"Coef. (vs. treat 1)"=fem0[[1]],"Test for Heterogeneity"=Rs)
+	R5 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=N,"method"=method,"Coef. (vs. treat 1)"=fem0[[1]],"Test for Heterogeneity"=Rs,digits=digits,call=call)
 
 }
 
+class(R5) <- "nma"	
 return(R5)
 
 }
 
+
+print.nma <- function(x, digits = x$digits, ...) {
+
+
+  if(x$method!="Fixed-effect model"){
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x$reference)
+  cat("\n")
+  cat("\n")
+  
+  cat("Number of studies: ", sep = "")
+  cat(x[[3]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Method: ", sep = "")
+  cat(x$method)
+  cat("\n")
+  cat("\n")
+  
+  cat("Coef. (vs. treat 1):\n", sep = "")
+  A <- x[[5]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("tau (Between-studies_SD) estimate: ", sep = "")
+  cat(round(x[[6]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("tau2 (Between-studies_variance) estimate: ", sep = "")
+  cat(round(x[[7]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("Multivariate H2-statistic: ", sep = "")
+  cat(round(x[[8]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("Multivariate I2-statistic: ", sep = "")
+  cat(round(x[[9]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("Test for Heterogeneity: ", sep = "")
+  cat(x[[10]])
+  cat("\n")
+  cat("\n")
+  
+  cat("95%PI (vs. treat 1):\n", sep = "")
+  A <- x[[11]]
+  ##
+  Lower <- round(A[,1],digits)
+  Upper <- round(A[,2],digits)
+  TAB <- cbind(
+	"Lower" = Lower,
+	"Upper" = Upper
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+  
+  invisible(x)
+  
+  }
+  
+  
+  if(x$method=="Fixed-effect model"){
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x$reference)
+  cat("\n")
+  cat("\n")
+  
+  cat("Number of studies: ", sep = "")
+  cat(x[[3]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Method: ", sep = "")
+  cat(x$method)
+  cat("\n")
+  cat("\n")
+  
+  cat("Coef. (vs. treat 1):\n", sep = "")
+  A <- x[[5]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Test for Heterogeneity:\n", sep = "")
+  cat(x[[6]])
+  cat("\n")
+
+  invisible(x)
+  
+  }
+  
+}
 

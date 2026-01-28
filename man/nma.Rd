@@ -2,7 +2,7 @@
 \alias{nma}
 \title{Network meta-analysis based on contrast-based approach using the multivariate meta-analysis model}
 \usage{
-nma(x, eform=FALSE, method="NH")
+nma(x, eform=FALSE, method="NH", digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
@@ -10,6 +10,8 @@ nma(x, eform=FALSE, method="NH")
 \item{eform}{A logical value that specifies whether the outcome ought to be transformed by exponential function (default: FALSE)}
 
 \item{method}{Estimation and prediction method. \code{NH}: Noma-Hamura's improved REML-based methods (default). \code{REML}: The ordinary REML method. \code{fixed}: Fixed-effect model.}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the network meta-analysis using the multivariate meta-analysis model.

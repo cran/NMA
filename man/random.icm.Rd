@@ -2,10 +2,12 @@
 \alias{random.icm}
 \title{Jackson's random inconsistency model}
 \usage{
-random.icm(x)
+random.icm(x, digits=3)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}
+
+\item{digits}{Number of decimal places}
 }
 \value{
 The results of the analysis of Jackson's random inconsistency model and I2-statistics are provided.

@@ -2,7 +2,7 @@
 \alias{nmaleague}
 \title{Generating a league table}
 \usage{
-nmaleague(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=NULL)
+nmaleague(x, method="NH", eform=FALSE, digits=2, PI=FALSE, out.csv=NULL)
 }
 \arguments{
 \item{x}{Output object of \code{setup}}

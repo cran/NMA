@@ -1,4 +1,6 @@
-sidesplit <- function(x){
+sidesplit <- function(x,digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure
 
@@ -445,7 +447,7 @@ REMLSS <- function(y,S,X1,maxitr=50){
 	colnames(R8) <- c("Coef.","SE","95%CL","95%CU","P-value")
 
 	R9 <- list("Direct evidence"=R6,"Indirect evidence"=R7,"Difference"=R8)
-    
+
 	return(R9)
 	
   }
@@ -589,13 +591,14 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		rownames(R3) <- rname
 
 		if(sum(is.na(R3[,1]))>=1){
-			R5 <- "For the NA components, the corresponding estimates were not calculable because of singularity issues (possibly, all the evidence about these contrasts comes from the studies which directly compare them)."
-			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5)
+			R5 <- "For the NA components, the estimates were not calculable because the corresponding nodes were isolated or sufficient information did not exist."
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5,digits=digits,call=call)
 		}
 		if(sum(is.na(R3[,1]))==0){
-			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=NA,digits=digits,call=call)
 		}
 
+		class(R4) <- "sidesplit"  
 		return(R4)
 
 	}
@@ -1196,13 +1199,14 @@ REMLSS <- function(y,S,X1,maxitr=50){
 		rownames(R3) <- rname
 
 		if(sum(is.na(R3[,1]))>=1){
-			R5 <- "For the NA components, the corresponding estimates were not calculable because of singularity issues (possibly, all the evidence about these contrasts comes from the studies which directly compare them)."
-			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5)
+			R5 <- "For the NA components, the estimates were not calculable because the corresponding nodes were isolated or sufficient information did not exist."
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=R5,digits=digits,call=call)
 		}
 		if(sum(is.na(R3[,1]))==0){
-			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3)
+			R4 <- list("coding"=x$coding,"reference"=x$reference,"Direct evidence"=R1,"Indirect evidence"=R2,"Difference"=R3,"Warning"=NA,digits=digits,call=call)
 		}
 
+		class(R4) <- "sidesplit"  
 		return(R4)
 
 	}
@@ -1218,3 +1222,89 @@ REMLSS <- function(y,S,X1,maxitr=50){
 	
 }
 
+	
+print.sidesplit <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x[[2]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Direct evidence: ", sep = "")
+  cat("\n")
+  A <- x[[3]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Indirect evidence: ", sep = "")
+  cat("\n")
+  A <- x[[4]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Difference between direct and indirect evidence with inconsistency test: ", sep = "")
+  cat("\n")
+  A <- x[[5]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Est." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+  
+  if(is.na(x$Warning)==FALSE){
+	cat("Note: ")
+	cat(x$Warning, sep = "")
+	cat("\n")
+	cat("\n")
+  }
+  
+  invisible(x)
+  
+}

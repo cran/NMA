@@ -1,4 +1,6 @@
-local.ict <- function(x){
+local.ict <- function(x,digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure
 
@@ -111,8 +113,9 @@ local.ict <- function(x){
 	
 		colnames(R9) <- c("N","tau","X2-statistic","df","P-value")
 	
-		R10 <- list("coding"=x$coding,"reference"=x$reference,"loop inconsistency tests"=R9)
+		R10 <- list("coding"=x$coding,"reference"=x$reference,"loop inconsistency tests"=R9,digits=digits,call=call)
 	
+		class(R10) <- "local.ict"  
 		return(R10)
 		
 	}
@@ -230,8 +233,9 @@ local.ict <- function(x){
 	
 		colnames(R9) <- c("N","tau","X2-statistic","df","P-value")
 		
-		R10 <- list("coding"=x$coding,"reference"=x$reference,"loop inconsistency tests"=R9)
+		R10 <- list("coding"=x$coding,"reference"=x$reference,"loop inconsistency tests"=R9,digits=digits,call=call)
 	
+		class(R10) <- "local.ict"  
 		return(R10)
 		
 	}
@@ -239,3 +243,44 @@ local.ict <- function(x){
 	}
 				
 }
+
+
+
+print.local.ict <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x$reference)
+  cat("\n")
+  cat("\n")
+  
+  cat("Local inconsistency tests: \n", sep = "")
+  A <- x[[3]]
+  ##
+  N <- A[,1]
+  tau <- round(A[,2],digits)
+  X <- round(A[,3],digits)
+  df <- round(A[,4])
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "N" = N,
+    "tau" = tau,
+	"X2-statistic" = X,
+	"df" = df,
+    "Pr(>X2)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  invisible(x)
+  
+}
+

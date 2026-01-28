@@ -1,4 +1,6 @@
-nmaleague <- function(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=NULL){	
+nmaleague <- function(x, method="NH", eform=FALSE, digits=2, PI=FALSE, out.csv=NULL){	
+
+	call <- match.call()
 
 	xms <- x$measure	
 
@@ -51,6 +53,8 @@ nmaleague <- function(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=N
 	
 	if(is.null(out.csv)==FALSE)  write.csv(R, file=out.csv, row.names = FALSE)
 	
+	R <- list(R=R,call=call)
+	class(R) <- "nmaleague"  
 	return(R)
 	
 	}
@@ -105,9 +109,32 @@ nmaleague <- function(x, method="NH", eform=FALSE, digits=3, PI=FALSE, out.csv=N
 	
 	if(is.null(out.csv)==FALSE)  write.csv(R, file=out.csv, row.names = FALSE)
 	
+	R <- list(R=R,call=call)
+	class(R) <- "nmaleague"  
 	return(R)
 	
 	}
 	
+}
+
+
+print.nmaleague <- function(x, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("League table:\n", sep = "")
+  mat <- x[[1]]
+  ##
+  w <- apply(mat, 2, function(x) max(nchar(x)))
+  fmt_row <- function(r)
+  paste(sprintf(paste0("%-", w, "s"), r), collapse = "  ")
+
+  cat(apply(mat, 1, fmt_row), sep = "\n")
+  cat("\n")
+
+  invisible(x)
+  
 }
 

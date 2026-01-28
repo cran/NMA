@@ -1,5 +1,7 @@
-random.icm <- function(x){
+random.icm <- function(x,digits=3){
 
+	call <- match.call()
+	
 	xms <- x$measure
 	
 	N <- x$N
@@ -464,9 +466,73 @@ random.icm <- function(x){
 
 	###
 
-	C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=x$N,"number of designs"=L,designs=des0,"Coef. (vs. treat 1)"=R2,"Between-studies_SD"=sqrt(modI$tau2),"Between-designs_SD"=sqrt(modI$gamma2),"Likelihood ratio tests for the variance components"=R3,"Heterogeneity and inconsistency statistics"=R4)
+	C2 <- list("coding"=x$coding,"reference"=x$reference,"number of studies"=x$N,"number of designs"=L,designs=des0,"Coef. (vs. treat 1)"=R2,"Between-studies_SD"=sqrt(modI$tau2),"Between-designs_SD"=sqrt(modI$gamma2),"Likelihood ratio tests for the variance components"=R3,"Heterogeneity and inconsistency statistics"=R4,digits=digits,call=call)
+	class(C2) <- "random.icm"
 
 	return(C2)
 
 }
 
+
+print.random.icm <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Reference: ", sep = "")
+  cat(x$reference)
+  cat("\n")
+  cat("\n")
+
+  cat("Number of studies: ", sep = "")
+  cat(x[[3]])
+  cat("\n")
+  cat("\n")
+
+  cat("Number of designs: ", sep = "")
+  cat(x[[4]])
+  cat("\n")
+  cat("\n")
+
+  cat("Designs: ", sep = "")
+  cat("\n")
+  cat(x[[5]])
+  cat("\n")
+  cat("\n")
+
+  cat("Coef. (vs. treat 1): ", sep = "")
+  cat("\n")
+  print(round(x[[6]],digits))
+  cat("\n")
+
+  cat("Between-studies SD: ", sep = "")
+  cat(round(x[[7]],digits))
+  cat("\n")
+  cat("\n")
+  
+  cat("Between-designs SD: ", sep = "")
+  cat(round(x[[8]],digits))
+  cat("\n")
+  cat("\n")
+  
+  cat("Likelihood ratio tests for the variance components: ", sep = "")
+  cat("\n")
+  A <- x[[9]]
+  A[,1] <- round(A[,1],digits)
+  A[,3] <- round(A[,3],digits)
+  print(A)
+  cat("\n")
+  
+  cat("Heterogeneity and inconsistency statistics: ", sep = "")
+  cat("\n")
+  print(round(x[[10]],digits))
+  cat("\n")
+
+  invisible(x)
+  
+}

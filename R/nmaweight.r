@@ -1,4 +1,6 @@
-nmaweight <- function(x){
+nmaweight <- function(x,digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure	
 
@@ -633,10 +635,11 @@ for(k in 1:p){
  ghm3 <- ghm3 + xlab("Contrast") + ylab("Study")
  #ghm3   # Making a heatmap by ggplot2
 
- R1 <- list("Heatmap is created by ggplot2."=ghm3, "coding"=x$coding, "Contribution of direct and indirect information"=W6, "Contribution weights: Direct comparison"=WD, "Contribution weights: Indirect comparison (BoS)"=WI, "Contribution weights: Overall evidence"=WM)
+ R1 <- list("Heatmap is created by ggplot2."=ghm3, "coding"=x$coding, "Contribution of direct and indirect information"=W6, "Contribution weights: Direct comparison"=WD, "Contribution weights: Indirect comparison (BoS)"=WI, "Contribution weights: Overall evidence"=WM,digits=digits,call=call)
 
- message("Contribution weight matrices for the consistency model:")
+ # message("Contribution weight matrices for the consistency model:")
 
+ class(R1) <- "nmaweight"
  return(R1)
 
  }
@@ -1273,16 +1276,55 @@ for(k in 1:p){
  ghm3 <- ghm3 + xlab("Contrast") + ylab("Study")
  #ghm3   # Making a heatmap by ggplot2
 
- R1 <- list("Heatmap is created by ggplot2."=ghm3, "coding"=x$coding, "Contribution of direct and indirect information"=W6, "Contribution weights: Direct comparison"=WD, "Contribution weights: Indirect comparison (BoS)"=WI, "Contribution weights: Overall evidence"=WM)
+ R1 <- list("coding"=x$coding, "Contribution of direct and indirect information"=W6, "Contribution weights: Direct comparison"=WD, "Contribution weights: Indirect comparison (BoS)"=WI, "Contribution weights: Overall evidence"=WM,digits=digits,call=call,"Heatmap is created by ggplot2."=ghm3)
 
- message("Contribution weight matrices for the consistency model:")
+ # message("Contribution weight matrices for the consistency model:")
 
+ class(R1) <- "nmaweight"
  return(R1)
 
  }
- 
- 
- 
+  
 }
 
 
+
+print.nmaweight <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Contribution of direct and indirect information: ", sep = "")
+  cat("\n")
+  A <- x[[3]]
+  print(A,row.names=FALSE)
+  cat("\n")
+
+  cat("Contribution weights: Direct comparison: ", sep = "")
+  cat("\n")
+  A <- x[[4]]
+  print(A,row.names=FALSE)
+  cat("\n")
+
+  cat("Contribution weights: Indirect comparison (BoS): ", sep = "")
+  cat("\n")
+  A <- x[[5]]
+  print(A,row.names=FALSE)
+  cat("\n")
+
+  cat("Contribution weights: Overall evidence: ", sep = "")
+  cat("\n")
+  A <- x[[6]]
+  print(A,row.names=FALSE)
+  cat("\n")
+
+  print(x[[1]])
+  
+  invisible(x)
+  
+}

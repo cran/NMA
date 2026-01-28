@@ -1,4 +1,6 @@
-transitivity <- function(x, z, gcol="blue", yrange=NULL){
+transitivity <- function(x, z, gcol="blue", yrange=NULL,digits=3){
+
+	call <- match.call()
 
 	covariate <- deparse(substitute(z))
 
@@ -58,6 +60,10 @@ transitivity <- function(x, z, gcol="blue", yrange=NULL){
 
 	}
 
+	z1 <- round(z1,digits)
+	z2 <- round(z2,digits)
+	z3 <- round(z3,digits)
+
 	R1 <- data.frame(des0,n.des,n1,z1,z2,z3)
 	colnames(R1) <- c("design","N","n","wt.mean","min","max")
 
@@ -86,9 +92,35 @@ transitivity <- function(x, z, gcol="blue", yrange=NULL){
 
 	legend("bottomright", c("Weighted Mean","Observations"), pch = c(15,20), col=c(gcol,"gray"), bg = "transparent")
 
-	R4 <- list("coding"=x$coding,"covariate"=covariate,"summary"=R1)
+	R4 <- list("coding"=x$coding,"covariate"=covariate,"summary"=R1,digits=digits,call=call)
 
+	class(R4) <- "transitivity"
 	return(R4)
 	
 }
 	
+
+print.transitivity <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("covariate: ", sep = "")
+  cat(x$covariate)
+  cat("\n")
+  cat("\n")
+
+  cat("Summary: ", sep = "")
+  cat("\n")
+  A <- x[[3]]
+  print(A,row.names=FALSE)
+  cat("\n")
+  
+  invisible(x)
+  
+}

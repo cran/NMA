@@ -1,3 +1,7 @@
+# NMA 3.1-1 (2026-01-28)
+
+- Output formats of most functions are updated.
+
 # NMA 2.1-2 (2026-01-12)
 
 - Some bugs are fixed.

@@ -1,4 +1,6 @@
-nmareg <- function(x, z, treats){
+nmareg <- function(x, z, treats,digits=3){
+
+	call <- match.call()
 
 	xms <- x$measure
 
@@ -506,8 +508,8 @@ REMLIC <- function(y,S,X1,maxitr=200){
 
   outcome <- paste0(treats," vs. 1")
   
-  R11 <- list("coding"=x$coding,"Covariates"=covname,"Outcomes evaluated the effect modifications"=outcome,"Coefficients"=R5,"Between-studies_SD"=R6,"Between-studies_COR"=R7)
-    
+  R11 <- list("coding"=x$coding,"Covariates"=covname,"Outcomes evaluated the effect modifications"=outcome,"Coefficients"=R5,"Between-studies_SD"=R6,"Between-studies_COR"=R7,digits=digits,call=call)
+  class(R11) <- "nmareg"  
   return(R11)
   
 }
@@ -517,3 +519,58 @@ C1 <- REMLIC(y,S,X1)
 return(C1)
 
 }
+
+
+
+print.nmareg <- function(x, digits = x$digits, ...) {
+
+  cat("Call:\n")
+  print(x$call,row.names=FALSE)
+  cat("\n")
+  
+  cat("Coding:\n", sep = "")
+  print(x$coding,row.names=FALSE)
+  cat("\n")
+
+  cat("Covariates: ", sep = "")
+  cat(x$Covariates)
+  cat("\n")
+  cat("\n")
+  
+  cat("Outcomes evaluated the effect modifications: ", sep = "")
+  cat(x[[3]])
+  cat("\n")
+  cat("\n")
+  
+  cat("Coefficients: \n", sep = "")
+  A <- x[[4]]
+  ##
+  est <- round(A[,1],digits)
+  SE <- round(A[,2],digits)
+  Lower <- round(A[,3],digits)
+  Upper <- round(A[,4],digits)
+  pval <- round(A[,5],digits)
+  TAB <- cbind(
+    "Coef." = est,
+    "SE" = SE,
+	"Lower" = Lower,
+	"Upper" = Upper,
+    "Pr(>|z|)"  = pval
+  )
+  rownames(TAB) <- rownames(A)
+  print(TAB)
+  cat("\n")
+
+  cat("Between-studies SD: ", sep = "")
+  cat(round(x[[5]],digits))
+  cat("\n")
+  cat("\n")
+
+  cat("Between-studies COR: ", sep = "")
+  cat(round(x[[6]],digits))
+  cat("\n")
+  
+  invisible(x)
+  
+}
+
